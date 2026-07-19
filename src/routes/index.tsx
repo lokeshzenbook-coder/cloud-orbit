@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { SmoothScroll, CustomCursor, ThemeToggle, Blog, AIAssistant } from "@/components/portfolio-extras";
+import { SmoothScroll, CustomCursor, Blog, AIAssistant } from "@/components/portfolio-extras";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Cloud, Server, Shield, GitBranch, Container, Terminal, Zap, Activity,
@@ -1504,7 +1504,7 @@ function Portfolio() {
       <CommandPalette open={cmd} onClose={() => setCmd(false)} />
       <SmoothScroll />
       <CustomCursor />
-      <ThemeToggle />
+      
       <AIAssistant />
     </div>
   );

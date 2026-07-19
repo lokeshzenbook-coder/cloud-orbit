@@ -120,28 +120,6 @@ export function CustomCursor() {
   );
 }
 
-/* ---------------- Theme toggle ---------------- */
-export function ThemeToggle() {
-  const [dark, setDark] = useState(true);
-  useEffect(() => {
-    const saved = localStorage.getItem("theme");
-    const d = saved ? saved === "dark" : true;
-    setDark(d);
-    document.documentElement.classList.toggle("dark", d);
-  }, []);
-  const toggle = () => {
-    const next = !dark;
-    setDark(next);
-    document.documentElement.classList.toggle("dark", next);
-    localStorage.setItem("theme", next ? "dark" : "light");
-  };
-  return (
-    <button onClick={toggle} aria-label="Toggle theme"
-      className="fixed bottom-6 left-6 z-[80] h-11 w-11 rounded-full glass-strong border border-white/10 grid place-items-center hover-glow">
-      {dark ? <Sun className="h-4 w-4 text-cyber-cyan" /> : <Moon className="h-4 w-4 text-cyber-purple" />}
-    </button>
-  );
-}
 
 /* ---------------- Blog / Articles ---------------- */
 const ARTICLES = [
