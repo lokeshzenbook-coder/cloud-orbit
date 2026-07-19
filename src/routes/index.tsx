@@ -1644,7 +1644,12 @@ function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void 
               {results.map((it, i) => (
                 <a key={`${it.kind}-${it.label}-${i}`} href={it.href} data-idx={i}
                    onMouseEnter={() => setActive(i)}
-                   onClick={onClose}
+                   onClick={() => {
+                     const query = q.trim();
+                     onClose();
+                     window.setTimeout(() => highlightInPage(it.href, query || it.label), 260);
+                   }}
+
                    className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm ${
                      i === active ? "bg-white/10" : "hover:bg-white/5"
                    }`}>
