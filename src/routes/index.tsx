@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Cloud, Server, Shield, GitBranch, Container, Terminal, Zap, Activity,
   Github, Linkedin, Mail, Download, ExternalLink, ArrowRight, Cpu,
@@ -9,6 +10,19 @@ import {
   FileCode, ShieldCheck, Bug, KeyRound, PackageSearch, ScrollText,
   ArrowUpRight, Menu, X, Phone, MapPin, Star, GitPullRequest,
 } from "lucide-react";
+
+async function trackResumeDownload(source: "hero" | "contact") {
+  try {
+    await supabase.from("resume_downloads").insert({
+      source,
+      user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 500) : null,
+      referrer: typeof document !== "undefined" ? document.referrer.slice(0, 500) || null : null,
+    });
+  } catch (e) {
+    console.warn("resume download tracking failed", e);
+  }
+}
+
 
 export const Route = createFileRoute("/")({
   component: Portfolio,
@@ -319,6 +333,7 @@ function MagneticButton({
     return (
       <a ref={ref as React.RefObject<HTMLAnchorElement>} href={href}
          download={download as any} target={target} rel={rel}
+         onClick={onClick}
          onMouseMove={handleMove} onMouseLeave={reset}
          className={`${base} ${variants[variant]} ${className}`}>
         {variant === "primary" && (
@@ -520,7 +535,7 @@ function Hero() {
             <MagneticButton href="#projects" variant="outline">
               <Rocket className="h-4 w-4" /> View projects
             </MagneticButton>
-            <MagneticButton href="/GR_Lokesh_Resume.pdf" variant="outline" download="GR_Lokesh_Resume.pdf" target="_blank" rel="noopener">
+            <MagneticButton href="/GR_Lokesh_Resume.pdf" variant="outline" download="GR_Lokesh_Resume.pdf" target="_blank" rel="noopener" onClick={() => trackResumeDownload("hero")}>
               <Download className="h-4 w-4" /> Download résumé
             </MagneticButton>
 
@@ -1236,6 +1251,29 @@ function Testimonials() {
 
 function Contact() {
   const [sent, setSent] = useState(false);
+  const [dlCount, setDlCount] = useState<number | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      const { count } = await supabase
+        .from("resume_downloads")
+        .select("*", { count: "exact", head: true });
+      if (!cancelled) setDlCount(count ?? 0);
+    };
+    load();
+    const ch = supabase
+      .channel("resume_downloads_count")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "resume_downloads" },
+        () => setDlCount((c) => (c ?? 0) + 1),
+      )
+      .subscribe();
+    return () => {
+      cancelled = true;
+      supabase.removeChannel(ch);
+    };
+  }, []);
   return (
     <section id="contact" className="relative py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 grid lg:grid-cols-2 gap-8">
@@ -1257,15 +1295,25 @@ function Contact() {
             </div>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
-            <MagneticButton href="/GR_Lokesh_Resume.pdf" variant="primary" download="GR_Lokesh_Resume.pdf" target="_blank" rel="noopener">
+            <MagneticButton href="/GR_Lokesh_Resume.pdf" variant="primary" download="GR_Lokesh_Resume.pdf" target="_blank" rel="noopener" onClick={() => trackResumeDownload("contact")}>
               <Download className="h-4 w-4" /> Download résumé
             </MagneticButton>
             <MagneticButton href="https://github.com/grlokesh96" variant="outline"><Github className="h-4 w-4" /> GitHub</MagneticButton>
             <MagneticButton href="https://www.linkedin.com/in/grlokesh96" variant="outline"><Linkedin className="h-4 w-4" /> LinkedIn</MagneticButton>
             <MagneticButton href="mailto:grlokesh96@gmail.com" variant="outline"><Mail className="h-4 w-4" /> Email</MagneticButton>
           </div>
+          <div className="mt-3 text-xs font-mono text-muted-foreground flex items-center gap-2">
+            <Activity className="h-3.5 w-3.5 text-cyber-cyan" />
+            <span>résumé downloads:&nbsp;
+              <span className="text-white tabular-nums">{dlCount === null ? "—" : dlCount.toLocaleString()}</span>
+            </span>
+            <span className="ml-1 inline-flex items-center gap-1 rounded-full px-2 py-0.5 bg-white/[0.04] border border-white/10">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" /> live
+            </span>
+          </div>
 
         </div>
+
 
         <form onSubmit={(e) => { e.preventDefault(); setSent(true); }}
               className="glass rounded-3xl p-6 md:p-8 space-y-4 hover-glow">
