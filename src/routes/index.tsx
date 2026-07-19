@@ -735,25 +735,25 @@ function Hero() {
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-            className="mt-6 font-display text-5xl md:text-7xl font-bold leading-[1.05]">
+            className="mt-6 font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-balance">
             Hi, I'm <span className="text-gradient">&nbsp;G R Lokesh</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-            className="mt-4 text-lg md:text-xl text-muted-foreground max-w-xl">
+            className="mt-5 text-base sm:text-lg md:text-xl leading-relaxed text-muted-foreground max-w-xl text-pretty">
             <HL accent>DevOps, DevSecOps, and Platform</HL> Engineer with <HL gradient>6+ years</HL> of experience designing, automating, and operating <HL>production-grade cloud infrastructure</HL>. Specialized in <HL>Kubernetes (Amazon EKS)</HL>, <HL>Terraform</HL>, <HL>GitOps (Argo CD)</HL>, <HL>CI/CD automation</HL>, <HL>Infrastructure as Code</HL>, <HL>container security</HL>, <HL>observability</HL>, and <HL>cloud-native platform engineering</HL> to deliver <HL gradient>secure, resilient, and highly available</HL> applications at scale.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
-            className="mt-6 text-base md:text-lg">
+            className="mt-6 text-sm sm:text-base md:text-lg font-mono truncate">
             <span className="text-muted-foreground">$ </span><TypingText />
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
-            className="mt-8 flex flex-wrap gap-3">
+            className="mt-8 flex flex-wrap items-center gap-3">
             <MagneticButton href="#contact" variant="primary">
               <Sparkles className="h-4 w-4" /> Hire me
             </MagneticButton>
@@ -763,18 +763,18 @@ function Hero() {
             <MagneticButton variant="outline" onClick={() => window.dispatchEvent(new CustomEvent("open-resume-preview", { detail: { source: "hero" } }))}>
               <Download className="h-4 w-4" /> Download resume
             </MagneticButton>
-
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}
-            className="mt-10 flex items-center gap-5 text-muted-foreground">
-            <a href="https://github.com/grlokesh96" target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Github className="h-5 w-5" /></a>
-            <a href="https://www.linkedin.com/in/grlokesh96" target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Linkedin className="h-5 w-5" /></a>
-            <a href="mailto:grlokesh96@gmail.com" className="hover:text-white transition-colors"><Mail className="h-5 w-5" /></a>
-            <div className="h-4 w-px bg-white/10" />
-            <span className="text-xs font-mono">Hyderabad · Open to roles</span>
+            className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-3 text-muted-foreground">
+            <a href="https://github.com/grlokesh96" target="_blank" rel="noreferrer" className="shrink-0 hover:text-white transition-colors"><Github className="h-5 w-5" /></a>
+            <a href="https://www.linkedin.com/in/grlokesh96" target="_blank" rel="noreferrer" className="shrink-0 hover:text-white transition-colors"><Linkedin className="h-5 w-5" /></a>
+            <a href="mailto:grlokesh96@gmail.com" className="shrink-0 hover:text-white transition-colors"><Mail className="h-5 w-5" /></a>
+            <div className="hidden sm:block h-4 w-px bg-white/10 shrink-0" />
+            <span className="text-xs font-mono truncate">Hyderabad · Open to roles</span>
           </motion.div>
+
         </div>
 
         {/* Orbit visualization */}
