@@ -942,7 +942,7 @@ function Skills() {
             })}
           </div>
 
-          <div className="glass rounded-2xl p-6">
+          <div className="glass rounded-2xl p-6 self-start w-full">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
                 <span className="h-10 w-10 rounded-lg grid place-items-center"
