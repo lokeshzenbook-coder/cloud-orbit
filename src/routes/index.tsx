@@ -1243,19 +1243,19 @@ function Contact() {
           />
           <div className="space-y-3 text-sm">
             <div className="flex items-center gap-3"><Mail className="h-4 w-4 text-cyber-cyan" />
-              <a href="mailto:hello@alexrivera.dev" className="hover:text-white">hello@alexrivera.dev</a>
+              <a href="mailto:grlokesh96@gmail.com" className="hover:text-white">grlokesh96@gmail.com</a>
             </div>
             <div className="flex items-center gap-3"><Phone className="h-4 w-4 text-cyber-purple" />
-              <span>+1 (415) 555-0198</span>
+              <span>+91 91009 48285</span>
             </div>
             <div className="flex items-center gap-3"><MapPin className="h-4 w-4 text-cyber-blue" />
-              <span>San Francisco · Remote-friendly</span>
+              <span>Hyderabad, India · Remote-friendly</span>
             </div>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
-            <MagneticButton href="#" variant="outline"><Github className="h-4 w-4" /> GitHub</MagneticButton>
-            <MagneticButton href="#" variant="outline"><Linkedin className="h-4 w-4" /> LinkedIn</MagneticButton>
-            <MagneticButton href="#" variant="outline"><Download className="h-4 w-4" /> Resume</MagneticButton>
+            <MagneticButton href="https://github.com/grlokesh96" variant="outline"><Github className="h-4 w-4" /> GitHub</MagneticButton>
+            <MagneticButton href="https://www.linkedin.com/in/grlokesh96" variant="outline"><Linkedin className="h-4 w-4" /> LinkedIn</MagneticButton>
+            <MagneticButton href="mailto:grlokesh96@gmail.com" variant="outline"><Mail className="h-4 w-4" /> Email</MagneticButton>
           </div>
         </div>
 
