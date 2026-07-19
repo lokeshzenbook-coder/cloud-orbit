@@ -791,44 +791,9 @@ function Hero() {
 
         </div>
 
-        {/* Orbit visualization */}
+        {/* 3D interactive globe with orbiting DevOps tools */}
         <div className="relative h-[420px] hidden lg:block">
-          <div className="absolute inset-0 flex items-center justify-center">
-            {/* concentric rings */}
-            {[100, 150, 210].map((r, i) => (
-              <div key={i} className="absolute rounded-full border border-white/10"
-                   style={{ width: r * 2, height: r * 2 }} />
-            ))}
-            {/* dashed rotating ring */}
-            <motion.div
-              className="absolute rounded-full border border-dashed border-cyber-purple/40"
-              style={{ width: 340, height: 340 }}
-              animate={{ rotate: 360 }}
-              transition={{ duration: 40, repeat: Infinity, ease: "linear" }} />
-
-            {/* core */}
-            <div className="relative h-28 w-28 rounded-full bg-gradient-cyber flex items-center justify-center animate-gradient"
-                 style={{ boxShadow: "0 0 60px rgba(59,130,246,0.6), 0 0 120px rgba(139,92,246,0.4)" }}>
-              <Cloud className="h-10 w-10 text-white" />
-              <span className="absolute inset-0 rounded-full animate-pulse-ring" />
-            </div>
-
-            {/* orbit items */}
-            {orbitItems.map((o, i) => (
-              <div key={i}
-                   className="absolute h-12 w-12 rounded-xl glass-strong flex items-center justify-center text-[10px] font-mono"
-                   style={{
-                     // @ts-expect-error css var
-                     "--r": `${o.r}px`,
-                     animation: `orbit ${o.dur}s linear infinite`,
-                     animationDelay: `-${(o.offset ?? 0) / 360 * o.dur}s`,
-                     color: o.color, borderColor: `${o.color}55`,
-                     boxShadow: `0 0 20px ${o.color}55`,
-                   }}>
-                {o.label}
-              </div>
-            ))}
-          </div>
+          <Hero3DVisualization reduce={!!reduce} orbitItems={orbitItems} />
         </div>
       </div>
     </section>
