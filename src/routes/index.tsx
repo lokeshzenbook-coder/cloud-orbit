@@ -1534,42 +1534,6 @@ function Pipeline() {
 
 
 
-function Testimonials() {
-  const [i, setI] = useState(0);
-  useEffect(() => {
-    const t = setInterval(() => setI(x => (x + 1) % TESTIMONIALS.length), 5000);
-    return () => clearInterval(t);
-  }, []);
-  const t = TESTIMONIALS[i];
-  return (
-    <section className="relative py-24 md:py-32 min-h-[70vh] [content-visibility:auto] [contain-intrinsic-size:1px_800px]">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6">
-        <SectionHeading eyebrow="// signals" title={<>What people say</>} />
-        <div className="glass rounded-3xl p-8 md:p-12 relative overflow-hidden">
-          <div className="absolute -top-16 -right-16 h-40 w-40 rounded-full blur-3xl opacity-40"
-               style={{ background: "radial-gradient(circle,#8B5CF6,transparent 60%)" }} />
-          <AnimatePresence mode="wait">
-            <motion.blockquote key={t.name}
-              initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}
-              className="relative">
-              <p className="font-display text-xl md:text-2xl leading-snug">"{t.quote}"</p>
-              <footer className="mt-6 text-sm">
-                <div className="font-medium">{t.name}</div>
-                <div className="text-muted-foreground">{t.role}</div>
-              </footer>
-            </motion.blockquote>
-          </AnimatePresence>
-          <div className="mt-6 flex gap-2">
-            {TESTIMONIALS.map((_, k) => (
-              <button key={k} onClick={() => setI(k)}
-                className={`h-1.5 rounded-full transition-all ${k === i ? "w-8 bg-gradient-cyber" : "w-4 bg-white/15"}`} />
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ---------------------------------------------------------- Contact --- */
 
@@ -2068,7 +2032,7 @@ function Portfolio() {
         <Achievements />
         <Architecture />
         <Pipeline />
-        <Testimonials />
+        
         <Blog />
         <Contact />
       </main>
