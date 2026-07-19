@@ -11,7 +11,7 @@ import {
   Database, Lock, Boxes, Workflow, GaugeCircle, Rocket, Award, Code2,
   ChevronRight, Command, Sparkles, Globe, Layers, Play, CircleCheck,
   FileCode, ShieldCheck, Bug, KeyRound, PackageSearch, ScrollText,
-  ArrowUpRight, Menu, X, Phone, MapPin, Star, GitPullRequest,
+  ArrowUpRight, Menu, X, Phone, MapPin,
 } from "lucide-react";
 
 async function trackResumeDownload(source: "hero" | "contact") {
