@@ -63,7 +63,7 @@ const TYPING = [
 ];
 
 const STATS = [
-  { label: "Years Experience", value: 5, suffix: "+" },
+  { label: "Years Experience", value: 6, suffix: "+" },
   { label: "Microservices Shipped", value: 45, suffix: "+" },
   { label: "EKS Environments", value: 12, suffix: "" },
   { label: "Deploy Time Reduced", value: 60, suffix: "%" },
