@@ -675,6 +675,7 @@ function HL({ children, gradient, accent }: { children: React.ReactNode; gradien
 }
 
 function Hero() {
+  const reduce = useReducedMotion();
   const orbitItems = [
     { label: "AWS", color: "#FF9900", r: 130, dur: 22 },
     { label: "K8s", color: "#326CE5", r: 130, dur: 22, offset: 90 },
