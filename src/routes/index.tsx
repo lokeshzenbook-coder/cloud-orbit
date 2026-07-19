@@ -1212,7 +1212,7 @@ function Achievements() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.05 }}
                 transition={{ delay: Math.min(i * 0.05, 0.2), duration: 0.5, ease: "easeOut" }}
-                className="group relative glass rounded-3xl p-6 md:p-7 border border-white/10 hover-glow overflow-hidden flex flex-col"
+                className="group relative glass rounded-3xl p-6 md:p-7 border border-white/10 hover-glow overflow-hidden flex flex-col min-h-[280px]"
               >
                 <div
                   className="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full opacity-20 blur-3xl transition group-hover:opacity-40"
