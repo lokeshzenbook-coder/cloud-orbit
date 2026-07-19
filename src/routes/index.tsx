@@ -46,12 +46,12 @@ const TYPING = [
 ];
 
 const STATS = [
-  { label: "Years Experience", value: 8, suffix: "+" },
-  { label: "Projects Delivered", value: 120, suffix: "+" },
-  { label: "K8s Clusters", value: 40, suffix: "" },
-  { label: "CI/CD Pipelines", value: 300, suffix: "+" },
-  { label: "Uptime SLA", value: 99.99, suffix: "%", decimals: 2 },
-  { label: "Cost Savings", value: 42, suffix: "%" },
+  { label: "Years Experience", value: 5, suffix: "+" },
+  { label: "Microservices Shipped", value: 45, suffix: "+" },
+  { label: "EKS Environments", value: 12, suffix: "" },
+  { label: "Deploy Time Reduced", value: 60, suffix: "%" },
+  { label: "Uptime SLA", value: 99.9, suffix: "%", decimals: 1 },
+  { label: "Cloud Cost Savings", value: 30, suffix: "%" },
 ];
 
 const SKILL_CATEGORIES = [
