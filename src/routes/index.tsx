@@ -837,12 +837,12 @@ function Hero() {
 function SectionHeading({ eyebrow, title, description }: { eyebrow: string; title: React.ReactNode; description?: string }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }} viewport={{ once: true }}
-      className="max-w-3xl mb-12">
-      <div className="font-mono text-xs text-cyber-cyan uppercase tracking-widest">{eyebrow}</div>
-      <h2 className="mt-2 text-3xl md:text-5xl font-display font-bold">{title}</h2>
-      {description && <p className="mt-4 text-muted-foreground">{description}</p>}
+      initial={{ y: 16 }} whileInView={{ y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }} viewport={{ once: true, amount: 0.05 }}
+      className="max-w-3xl mb-10 md:mb-14">
+      <div className="font-mono text-[11px] sm:text-xs text-cyber-cyan uppercase tracking-widest">{eyebrow}</div>
+      <h2 className="mt-2 text-3xl sm:text-4xl md:text-5xl font-display font-bold leading-[1.15] tracking-tight text-balance">{title}</h2>
+      {description && <p className="mt-4 text-sm sm:text-base text-muted-foreground leading-relaxed text-pretty">{description}</p>}
     </motion.div>
   );
 }
