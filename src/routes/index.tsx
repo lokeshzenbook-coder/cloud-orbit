@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Cloud, Server, Shield, GitBranch, Container, Terminal, Zap, Activity,
   Github, Linkedin, Mail, Download, ExternalLink, ArrowRight, Cpu,
@@ -9,6 +10,19 @@ import {
   FileCode, ShieldCheck, Bug, KeyRound, PackageSearch, ScrollText,
   ArrowUpRight, Menu, X, Phone, MapPin, Star, GitPullRequest,
 } from "lucide-react";
+
+async function trackResumeDownload(source: "hero" | "contact") {
+  try {
+    await supabase.from("resume_downloads").insert({
+      source,
+      user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 500) : null,
+      referrer: typeof document !== "undefined" ? document.referrer.slice(0, 500) || null : null,
+    });
+  } catch (e) {
+    console.warn("resume download tracking failed", e);
+  }
+}
+
 
 export const Route = createFileRoute("/")({
   component: Portfolio,
