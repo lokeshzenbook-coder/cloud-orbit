@@ -282,10 +282,11 @@ function StatCard({ stat, delay }: { stat: typeof STATS[number]; delay: number }
 }
 
 function MagneticButton({
-  children, variant = "primary", href, onClick, className = "",
+  children, variant = "primary", href, onClick, className = "", download, target, rel,
 }: {
   children: React.ReactNode; variant?: "primary" | "ghost" | "outline";
   href?: string; onClick?: () => void; className?: string;
+  download?: boolean | string; target?: string; rel?: string;
 }) {
   const ref = useRef<HTMLAnchorElement | HTMLButtonElement | null>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -317,6 +318,7 @@ function MagneticButton({
   if (href) {
     return (
       <a ref={ref as React.RefObject<HTMLAnchorElement>} href={href}
+         download={download as any} target={target} rel={rel}
          onMouseMove={handleMove} onMouseLeave={reset}
          className={`${base} ${variants[variant]} ${className}`}>
         {variant === "primary" && (
@@ -327,6 +329,7 @@ function MagneticButton({
       </a>
     );
   }
+
   return (
     <button ref={ref as React.RefObject<HTMLButtonElement>} onClick={onClick}
             onMouseMove={handleMove} onMouseLeave={reset}
