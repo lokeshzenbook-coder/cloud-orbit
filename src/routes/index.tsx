@@ -849,7 +849,7 @@ function SectionHeading({ eyebrow, title, description }: { eyebrow: string; titl
 
 function About() {
   return (
-    <section id="about" className="relative py-24 md:py-32">
+    <section id="about" className="relative py-24 md:py-32 min-h-[70vh] [content-visibility:auto] [contain-intrinsic-size:1px_800px]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="// about"
@@ -913,7 +913,7 @@ function Skills() {
   const cat = SKILL_CATEGORIES[active];
 
   return (
-    <section id="skills" className="relative py-24 md:py-32">
+    <section id="skills" className="relative py-24 md:py-32 min-h-[70vh] [content-visibility:auto] [contain-intrinsic-size:1px_800px]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="// stack"
@@ -995,7 +995,7 @@ function Skills() {
 
 function Certs() {
   return (
-    <section id="certifications" className="relative py-24 md:py-32">
+    <section id="certifications" className="relative py-24 md:py-32 min-h-[70vh] [content-visibility:auto] [contain-intrinsic-size:1px_800px]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading eyebrow="// credentials" title={<>Certifications</>} />
         <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2">
@@ -1035,7 +1035,7 @@ function Certs() {
 
 function Experience() {
   return (
-    <section id="experience" className="relative py-24 md:py-32">
+    <section id="experience" className="relative py-24 md:py-32 min-h-[70vh] [content-visibility:auto] [contain-intrinsic-size:1px_800px]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading eyebrow="// timeline" title={<>Experience</>} />
         <div className="relative pl-6 md:pl-10">
@@ -1194,7 +1194,7 @@ const ACHIEVEMENTS = [
 
 function Achievements() {
   return (
-    <section id="impact" className="relative py-24 md:py-32">
+    <section id="impact" className="relative py-24 md:py-32 min-h-[70vh] [content-visibility:auto] [contain-intrinsic-size:1px_800px]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="// impact"
@@ -1286,7 +1286,7 @@ function Achievements() {
 
 function Projects() {
   return (
-    <section id="projects" className="relative py-24 md:py-32">
+    <section id="projects" className="relative py-24 md:py-32 min-h-[70vh] [content-visibility:auto] [contain-intrinsic-size:1px_800px]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="// shipped"
@@ -1351,7 +1351,7 @@ function Architecture() {
   const activeNode = ARCH_NODES.find(n => n.id === active);
 
   return (
-    <section id="architecture" className="relative py-24 md:py-32">
+    <section id="architecture" className="relative py-24 md:py-32 min-h-[70vh] [content-visibility:auto] [contain-intrinsic-size:1px_800px]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="// aws · devsecops reference architecture"
@@ -1476,7 +1476,7 @@ function Pipeline() {
   }, []);
 
   return (
-    <section id="pipeline" className="relative py-24 md:py-32">
+    <section id="pipeline" className="relative py-24 md:py-32 min-h-[70vh] [content-visibility:auto] [contain-intrinsic-size:1px_800px]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="// devsecops · ci-cd"
@@ -1543,7 +1543,7 @@ function Testimonials() {
   }, []);
   const t = TESTIMONIALS[i];
   return (
-    <section className="relative py-24 md:py-32">
+    <section className="relative py-24 md:py-32 min-h-[70vh] [content-visibility:auto] [contain-intrinsic-size:1px_800px]">
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <SectionHeading eyebrow="// signals" title={<>What people say</>} />
         <div className="glass rounded-3xl p-8 md:p-12 relative overflow-hidden">
@@ -1600,7 +1600,7 @@ function Contact() {
     };
   }, []);
   return (
-    <section id="contact" className="relative py-24 md:py-32">
+    <section id="contact" className="relative py-24 md:py-32 min-h-[70vh] [content-visibility:auto] [contain-intrinsic-size:1px_800px]">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 grid lg:grid-cols-2 gap-8">
         <div>
           <SectionHeading
