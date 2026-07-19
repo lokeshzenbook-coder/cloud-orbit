@@ -992,7 +992,7 @@ function Skills() {
 
 function Certs() {
   return (
-    <section id="certifications" className="relative py-24">
+    <section id="certifications" className="relative py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading eyebrow="// credentials" title={<>Certifications</>} />
         <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2">
@@ -1540,7 +1540,7 @@ function Testimonials() {
   }, []);
   const t = TESTIMONIALS[i];
   return (
-    <section className="relative py-20">
+    <section className="relative py-24 md:py-32">
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <SectionHeading eyebrow="// signals" title={<>What people say</>} />
         <div className="glass rounded-3xl p-8 md:p-12 relative overflow-hidden">
