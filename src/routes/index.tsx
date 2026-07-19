@@ -702,24 +702,32 @@ function Hero() {
         <div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              boxShadow: [
-                "0 0 0 0 rgba(0,229,255,0.0), 0 0 12px rgba(0,229,255,0.25)",
-                "0 0 0 6px rgba(0,229,255,0.0), 0 0 24px rgba(0,229,255,0.55)",
-                "0 0 0 0 rgba(0,229,255,0.0), 0 0 12px rgba(0,229,255,0.25)",
-              ],
-            }}
-            transition={{
-              opacity: { duration: 0.5 },
-              y: { duration: 0.5 },
-              boxShadow: { duration: 2.4, repeat: Infinity, ease: "easeInOut" },
-            }}
-            whileHover={{ scale: 1.04 }}
+            animate={
+              reduce
+                ? { opacity: 1, y: 0 }
+                : {
+                    opacity: 1,
+                    y: 0,
+                    boxShadow: [
+                      "0 0 0 0 rgba(0,229,255,0.0), 0 0 12px rgba(0,229,255,0.25)",
+                      "0 0 0 6px rgba(0,229,255,0.0), 0 0 24px rgba(0,229,255,0.55)",
+                      "0 0 0 0 rgba(0,229,255,0.0), 0 0 12px rgba(0,229,255,0.25)",
+                    ],
+                  }
+            }
+            transition={
+              reduce
+                ? { duration: 0.3 }
+                : {
+                    opacity: { duration: 0.5 },
+                    y: { duration: 0.5 },
+                    boxShadow: { duration: 2.4, repeat: Infinity, ease: "easeInOut" },
+                  }
+            }
+            whileHover={reduce ? undefined : { scale: 1.04 }}
             className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs font-mono min-h-[26px] border border-cyber-cyan/40 bg-cyber-cyan/5">
             <span className="relative flex h-2 w-2">
-              <span className="absolute inset-0 rounded-full bg-cyber-cyan animate-ping opacity-75" />
+              {!reduce && <span className="absolute inset-0 rounded-full bg-cyber-cyan animate-ping opacity-75" />}
               <span className="relative inline-flex rounded-full h-2 w-2 bg-cyber-cyan" />
             </span>
             <span className="font-semibold tracking-wide uppercase text-gradient">Open to New Opportunities</span>
