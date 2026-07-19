@@ -828,7 +828,7 @@ function About() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="// about"
-          title={<>Engineering platforms that <span className="text-gradient">don't wake me up</span></>}
+          title={<>Engineering platforms that <HL gradient>don't wake me up</HL></>}
           description="Results-driven AWS DevOps Engineer with 5+ years architecting cloud-native platforms, Kubernetes infrastructure, GitOps workflows, and DevSecOps pipelines across production environments."
         />
 
@@ -892,7 +892,7 @@ function Skills() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="// stack"
-          title={<>Skills <span className="text-gradient">dashboard</span></>}
+          title={<>Skills <HL gradient>dashboard</HL></>}
           description="Live-view of the tools I ship with. Hover for context, click a category to drill in."
         />
 
@@ -1172,7 +1172,7 @@ function Achievements() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="// impact"
-          title={<>Measurable <span className="text-gradient">outcomes</span>, not vibes</>}
+          title={<>Measurable <HL gradient>outcomes</HL>, not vibes</>}
           description="Selected results from AWS EKS, GitOps, Infrastructure-as-Code, and secure CI/CD work across the last five years."
         />
 
@@ -1264,7 +1264,7 @@ function Projects() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="// shipped"
-          title={<>Selected <span className="text-gradient">projects</span></>}
+          title={<>Selected <HL gradient>projects</HL></>}
           description="Real infrastructure that powered real businesses. Numbers below are measured, not marketed."
         />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -1329,7 +1329,7 @@ function Architecture() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="// aws · reference architecture"
-          title={<>Interactive <span className="text-gradient">cloud topology</span></>}
+          title={<>Interactive <HL gradient>cloud topology</HL></>}
           description="Click any node to inspect. This is the pattern I ship for production workloads on AWS."
         />
 
@@ -1407,7 +1407,7 @@ function Pipeline() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="// devsecops · ci-cd"
-          title={<>Secure delivery <span className="text-gradient">pipeline</span></>}
+          title={<>Secure delivery <HL gradient>pipeline</HL></>}
           description="From git push to production, every stage is signed, scanned, and observable."
         />
 
@@ -1482,7 +1482,7 @@ function Security() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="// devsecops · posture"
-          title={<>Security <span className="text-gradient">command center</span></>}
+          title={<>Security <HL gradient>command center</HL></>}
         />
 
         <div className="grid md:grid-cols-4 gap-4 mb-6">
@@ -1694,7 +1694,7 @@ function Contact() {
         <div>
           <SectionHeading
             eyebrow="// contact"
-            title={<>Let's ship <span className="text-gradient">something reliable</span></>}
+            title={<>Let's ship <HL gradient>something reliable</HL></>}
             description="Available for platform, DevSecOps, and cloud engineering roles. Consulting welcome."
           />
           <div className="space-y-3 text-sm">
