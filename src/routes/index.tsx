@@ -921,8 +921,9 @@ function Skills() {
           description="Live-view of the tools I ship with. Hover for context, click a category to drill in."
         />
 
-        <div className="grid lg:grid-cols-[280px_1fr] gap-6">
-          <div className="glass rounded-2xl p-3 space-y-1">
+        <div className="grid lg:grid-cols-[280px_1fr] gap-6 items-start">
+          <div className="glass rounded-2xl p-3 space-y-1 self-start">
+
             {SKILL_CATEGORIES.map((c, i) => {
               const Icon = c.icon;
               const isActive = i === active;
@@ -941,7 +942,7 @@ function Skills() {
             })}
           </div>
 
-          <div className="glass rounded-2xl p-6">
+          <div className="glass rounded-2xl p-6 self-start w-full">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
                 <span className="h-10 w-10 rounded-lg grid place-items-center"
