@@ -77,8 +77,6 @@ const SKILL_CATEGORIES = [
     skills: [
       { name: "AWS", level: 95, years: 6 },
       { name: "Azure", level: 78, years: 3 },
-      { name: "GCP", level: 72, years: 3 },
-      { name: "Cloudflare", level: 82, years: 4 },
     ],
   },
   {
