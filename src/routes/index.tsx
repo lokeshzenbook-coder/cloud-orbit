@@ -532,7 +532,7 @@ function Hero() {
               <Rocket className="h-4 w-4" /> View projects
             </MagneticButton>
             <MagneticButton href="/GR_Lokesh_Resume.pdf" variant="outline" download="GR_Lokesh_Resume.pdf" target="_blank" rel="noopener" onClick={() => trackResumeDownload("hero")}>
-              <Download className="h-4 w-4" /> Download résumé
+              <Download className="h-4 w-4" /> Download resume
             </MagneticButton>
 
           </motion.div>
@@ -1495,7 +1495,7 @@ function Contact() {
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
             <MagneticButton href="/GR_Lokesh_Resume.pdf" variant="primary" download="GR_Lokesh_Resume.pdf" target="_blank" rel="noopener" onClick={() => trackResumeDownload("contact")}>
-              <Download className="h-4 w-4" /> Download résumé
+              <Download className="h-4 w-4" /> Download resume
             </MagneticButton>
             <MagneticButton href="https://github.com/grlokesh96" variant="outline"><Github className="h-4 w-4" /> GitHub</MagneticButton>
             <MagneticButton href="https://www.linkedin.com/in/grlokesh96" variant="outline"><Linkedin className="h-4 w-4" /> LinkedIn</MagneticButton>
