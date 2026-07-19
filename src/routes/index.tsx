@@ -736,7 +736,7 @@ function Hero() {
             whileHover={reduce ? undefined : { scale: 1.04 }}
             className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs font-mono min-h-[26px] border border-cyber-cyan/40 bg-cyber-cyan/5">
             <span className="relative flex h-2 w-2">
-              {!reduce && <span className="absolute inset-0 rounded-full bg-cyber-cyan animate-ping opacity-75" />}
+              <span className="absolute inset-0 rounded-full bg-cyber-cyan animate-ping opacity-75 motion-reduce:hidden" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-cyber-cyan" />
             </span>
             <span className="font-semibold tracking-wide uppercase text-gradient">Open to New Opportunities</span>
