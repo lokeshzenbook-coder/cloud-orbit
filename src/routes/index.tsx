@@ -520,9 +520,10 @@ function Hero() {
             <MagneticButton href="#projects" variant="outline">
               <Rocket className="h-4 w-4" /> View projects
             </MagneticButton>
-            <MagneticButton href="mailto:grlokesh96@gmail.com" variant="outline">
-              <Mail className="h-4 w-4" /> Email
+            <MagneticButton href="/GR_Lokesh_Resume.pdf" variant="outline" download="GR_Lokesh_Resume.pdf" target="_blank" rel="noopener">
+              <Download className="h-4 w-4" /> Download résumé
             </MagneticButton>
+
           </motion.div>
 
           <motion.div
