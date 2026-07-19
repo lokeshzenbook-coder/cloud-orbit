@@ -388,17 +388,24 @@ const PROJECTS = [
   },
 ];
 
-const ARCH_NODES = [
-  { id: "route53", label: "Route 53", desc: "DNS, health-checked failover" },
-  { id: "cf", label: "CloudFront", desc: "Global CDN + WAF" },
-  { id: "alb", label: "ALB", desc: "TLS termination, path routing" },
-  { id: "eks", label: "EKS Cluster", desc: "Karpenter-managed, multi-AZ" },
-  { id: "svc", label: "Services / Pods", desc: "Istio mTLS, NGINX Ingress" },
-  { id: "rds", label: "RDS + Redis", desc: "PostgreSQL multi-AZ, ElastiCache" },
-  { id: "s3", label: "S3 + CloudWatch", desc: "Encrypted objects, log aggregation" },
-  { id: "obs", label: "Prometheus + Grafana", desc: "SLOs, alerts, dashboards" },
-  { id: "gitops", label: "Argo CD ← GitHub Actions", desc: "GitOps continuous delivery" },
+const ARCH_NODES: Array<{ id: string; label: string; desc: string; tools?: string[] }> = [
+  { id: "src", label: "Source Control", desc: "Feature branch / PR-driven workflow. Trunk-based delivery with signed commits.", tools: ["GitHub", "GitLab", "Signed commits"] },
+  { id: "presec", label: "Pre-Build Security Scans", desc: "Shift-left scanning on every PR — secrets, SAST, and dependency vulnerabilities.", tools: ["Gitleaks", "Semgrep", "SonarQube SAST", "Snyk", "Trivy FS"] },
+  { id: "sbom", label: "SBOM & License Compliance", desc: "Software composition analysis, SBOM generation and license posture enforcement.", tools: ["Syft", "CycloneDX", "Trivy", "Snyk License"] },
+  { id: "gate", label: "Quality Gate", desc: "SonarQube quality gate — build is blocked if coverage, bugs, or hotspots regress.", tools: ["SonarQube", "Coverage thresholds", "Blocking gate"] },
+  { id: "build", label: "Build & Unit Test", desc: "Language-native build, unit tests and code-coverage reporting run in parallel matrices.", tools: ["Maven", "Gradle", "npm", "Go", "JUnit", "PyTest", "Jest", "JaCoCo", "Istanbul"] },
+  { id: "img", label: "Container Build & Scan", desc: "Docker image built from a hardened base, linted, scanned, optionally malware-checked, then signed.", tools: ["Docker", "Hadolint", "Trivy", "Grype", "ClamAV", "Cosign"] },
+  { id: "ecr", label: "Amazon ECR", desc: "Immutable, versioned, signed images pushed to ECR with lifecycle policies + scan-on-push.", tools: ["Amazon ECR", "Immutable tags", "Cosign signatures"] },
+  { id: "tf", label: "Terraform IaC", desc: "validate → fmt → Checkov → plan → manual approval (prod) → apply. Landing-zone modules reused across accounts.", tools: ["Terraform", "terraform fmt", "Checkov", "Terraform Plan", "Manual Approval", "Terraform Apply"] },
+  { id: "aws", label: "AWS Infrastructure", desc: "Provisioned via Terraform — networking, compute, data, identity and observability primitives.", tools: ["VPC", "Public/Private Subnets", "NAT Gateway", "ALB", "IAM", "Route 53", "ACM", "EKS", "Node Groups", "ECR", "RDS", "ElastiCache", "S3", "Secrets Manager", "CloudWatch", "KMS"] },
+  { id: "argo", label: "GitOps · Argo CD", desc: "Argo CD watches the Git repo of manifests / Helm charts and syncs desired state to EKS.", tools: ["Argo CD", "Helm", "Kustomize", "ApplicationSets", "Argo Rollouts"] },
+  { id: "k8s", label: "Kubernetes Runtime (EKS)", desc: "Hardened namespaces, policy-as-code, IRSA-backed workloads, secrets from AWS Secrets Manager via CSI.", tools: ["Namespaces", "NetworkPolicies", "Pod Security Standards", "Kyverno", "Gatekeeper", "ResourceQuotas", "IRSA", "Secrets Store CSI Driver", "AWS Secrets Manager", "Deployments", "Services", "AWS Load Balancer Controller", "ALB"] },
+  { id: "rtsec", label: "Runtime Security", desc: "Continuous threat detection and CIS-benchmark posture on both cluster and AWS account planes.", tools: ["Falco", "Kubescape", "Trivy Operator", "Kube-Bench", "Kube-Hunter", "GuardDuty", "AWS Security Hub", "Inspector", "CloudTrail", "AWS Config"] },
+  { id: "obs", label: "Observability", desc: "Metrics, logs and traces unified behind Grafana — SLO-driven alerting on error budgets.", tools: ["Prometheus", "Grafana", "Loki", "Fluent Bit", "OpenTelemetry", "Jaeger", "CloudWatch Logs", "CloudWatch Metrics", "AlertManager"] },
+  { id: "alert", label: "Alerting & On-Call", desc: "Routed alerts with escalation policies and rich context links back to dashboards + runbooks.", tools: ["Slack", "Microsoft Teams", "PagerDuty", "Opsgenie", "SNS", "Email"] },
+  { id: "cm", label: "Continuous Monitoring", desc: "Feedback loop — findings, SLO burns and cost signals feed back into the next PR.", tools: ["SLO Burn Alerts", "Cost Anomaly", "Security Hub Findings", "Compliance Drift"] },
 ];
+
 
 const PIPELINE_STAGES = [
   { name: "Git Push", icon: GitBranch },
