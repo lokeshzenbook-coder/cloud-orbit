@@ -127,9 +127,7 @@ const SKILL_CATEGORIES = [
 ];
 
 const CERTIFICATIONS = [
-  { name: "AWS Certified Solutions Architect – Associate", issuer: "Amazon Web Services", id: "AWS-SAA", date: "In Progress" },
   { name: "Certified Kubernetes Administrator (CKA)", issuer: "CNCF / Linux Foundation", id: "CKA", date: "Target 2026" },
-  { name: "HashiCorp Terraform Associate", issuer: "HashiCorp", id: "TF-Associate", date: "Target 2026" },
   { name: "B.Tech, Civil Engineering", issuer: "Annamacharya Institute of Technology & Science", id: "AITS", date: "2015 – 2019" },
 ];
 
