@@ -1303,7 +1303,7 @@ function Projects() {
                 viewport={{ once: true, amount: 0.05 }} transition={{ delay: Math.min(i * 0.05, 0.2), duration: 0.5, ease: "easeOut" }}
                 whileHover={{ y: -6, rotateX: 2, rotateY: -2 }}
                 style={{ transformStyle: "preserve-3d" }}
-                className="group relative rounded-2xl p-6 glass hover-glow overflow-hidden">
+                className="group relative rounded-2xl p-6 glass hover-glow overflow-hidden min-h-[320px]">
                 {/* animated corner */}
                 <div className="absolute -top-24 -right-24 h-48 w-48 rounded-full blur-3xl opacity-30 group-hover:opacity-70 transition-opacity"
                      style={{ background: `radial-gradient(circle, ${i % 2 ? "#06B6D4" : "#8B5CF6"}, transparent 60%)` }} />
