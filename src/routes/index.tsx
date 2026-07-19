@@ -1582,8 +1582,14 @@ function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void 
       }
       else if (e.key === "Enter") {
         const it = results[active];
-        if (it) { window.location.hash = it.href; onClose(); }
+        if (it) {
+          const query = q.trim();
+          window.location.hash = it.href;
+          onClose();
+          window.setTimeout(() => highlightInPage(it.href, query || it.label), 260);
+        }
       }
+
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
