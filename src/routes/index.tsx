@@ -1951,6 +1951,7 @@ function Portfolio() {
       </main>
       <Footer />
       <CommandPalette open={cmd} onClose={() => setCmd(false)} />
+      <ResumePreviewModal />
       <SmoothScroll />
       <CustomCursor />
       
