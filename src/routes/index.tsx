@@ -518,7 +518,7 @@ function Hero() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
             className="mt-4 text-lg md:text-xl text-muted-foreground max-w-xl">
             AWS <span className="text-white">DevOps · Platform · DevSecOps</span> Engineer with 5+ years
-            architecting cloud-native EKS platforms, GitOps delivery, and secure CI/CD.
+            architecting cloud-native Kubernetes (EKS) platforms, GitOps delivery, Infrastructure as Code, and secure CI/CD pipelines on AWS.
           </motion.p>
 
           <motion.div
