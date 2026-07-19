@@ -1299,8 +1299,8 @@ function Projects() {
             return (
               <motion.article
                 key={p.title}
-                initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }} transition={{ delay: i * 0.05 }}
+                initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.05 }} transition={{ delay: Math.min(i * 0.05, 0.2), duration: 0.5, ease: "easeOut" }}
                 whileHover={{ y: -6, rotateX: 2, rotateY: -2 }}
                 style={{ transformStyle: "preserve-3d" }}
                 className="group relative rounded-2xl p-6 glass hover-glow overflow-hidden">
