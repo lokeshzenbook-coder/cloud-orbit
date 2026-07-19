@@ -499,12 +499,11 @@ function Hero() {
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 grid lg:grid-cols-[1.2fr_1fr] gap-12 items-center">
         <div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-                      className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs font-mono text-cyber-cyan">
+                      className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs font-mono text-cyber-cyan min-h-[26px]">
             <span className="relative flex h-2 w-2">
               <span className="absolute inset-0 rounded-full bg-cyber-cyan animate-ping opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-cyber-cyan" />
             </span>
-            status: <span className="text-white">operational</span> · region: us-east-1
           </motion.div>
 
           <motion.h1
