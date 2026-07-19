@@ -700,7 +700,7 @@ function Hero() {
               <span className="absolute inset-0 rounded-full bg-cyber-cyan animate-ping opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-cyber-cyan" />
             </span>
-            <span>open to new opportunities</span>
+            <span>Open to New Opportunities</span>
           </motion.div>
 
           <motion.h1
