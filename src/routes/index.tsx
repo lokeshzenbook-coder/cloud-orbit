@@ -1399,7 +1399,7 @@ function Portfolio() {
             <div className="font-mono text-sm text-cyber-cyan max-w-md w-full px-6">
               <div className="mb-4 flex items-center gap-2">
                 <Terminal className="h-4 w-4" />
-                <span className="text-white">alex@portfolio</span>
+                <span className="text-white">lokesh@portfolio</span>
                 <span className="text-muted-foreground">~ $ ./boot.sh</span>
               </div>
               {[
