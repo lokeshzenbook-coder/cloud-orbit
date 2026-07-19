@@ -70,15 +70,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Alex Rivera — Senior DevOps & DevSecOps Engineer" },
+      { title: "G R Lokesh — Senior DevOps & DevSecOps Engineer" },
       {
         name: "description",
         content:
-          "Portfolio of Alex Rivera, Senior DevOps & DevSecOps Engineer. AWS, Kubernetes, Terraform, GitOps, Platform Engineering and Cloud Security at scale.",
+          "Portfolio of G R Lokesh, Senior DevOps & DevSecOps Engineer. AWS, Kubernetes, Terraform, GitOps, Platform Engineering and Cloud Security at scale.",
       },
-      { name: "author", content: "Alex Rivera" },
+      { name: "author", content: "G R Lokesh" },
       { name: "theme-color", content: "#050816" },
-      { property: "og:title", content: "Alex Rivera — Senior DevOps & DevSecOps Engineer" },
+      { property: "og:title", content: "G R Lokesh — Senior DevOps & DevSecOps Engineer" },
       {
         property: "og:description",
         content:
