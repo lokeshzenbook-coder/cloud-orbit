@@ -225,7 +225,7 @@ const NAV = [
   { id: "skills", label: "Skills" },
   { id: "projects", label: "Projects" },
   { id: "impact", label: "Impact" },
-  { id: "architecture", label: "Architecture" },
+  
   { id: "pipeline", label: "Pipeline" },
   { id: "blog", label: "Blog" },
   { id: "contact", label: "Contact" },
@@ -1338,127 +1338,6 @@ function Projects() {
   );
 }
 
-/* ----------------------------------------------- AWS Architecture --- */
-
-function Architecture() {
-  const [active, setActive] = useState<string | null>(null);
-  const activeNode = ARCH_NODES.find(n => n.id === active);
-
-  return (
-    <section id="architecture" className="relative py-24 md:py-32 min-h-[70vh] [content-visibility:auto] [contain-intrinsic-size:1px_800px]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <SectionHeading
-          eyebrow="// aws · devsecops reference architecture"
-          title={<>End-to-end <HL gradient>DevSecOps pipeline</HL></>}
-          description="From a developer's pull request to production on Amazon EKS — every stage is scanned, signed, provisioned as code, and continuously monitored. Click any stage to inspect the tooling."
-        />
-
-
-        <div className="grid lg:grid-cols-[1fr_320px] gap-6">
-          <div className="glass rounded-3xl p-6 md:p-10 relative overflow-hidden">
-            <div className="absolute inset-0 grid-bg opacity-30" />
-            <div className="relative grid gap-3">
-              {ARCH_NODES.map((n, i) => (
-                <div key={n.id} className="flex flex-col items-center w-full">
-                  <HoverCard openDelay={120} closeDelay={80}>
-                    <HoverCardTrigger asChild>
-                      <button
-                        onClick={() => setActive(n.id === active ? null : n.id)}
-                        aria-expanded={active === n.id}
-                        aria-label={`${n.label} — ${n.desc}`}
-                        className={`w-full max-w-md flex items-center gap-3 px-4 py-3 rounded-xl border transition-all
-                                    ${active === n.id
-                                      ? "bg-white/10 border-cyber-cyan/50 neon-ring"
-                                      : "glass border-white/10 hover:border-cyber-purple/40"}`}>
-                        <span className="h-8 w-8 rounded-lg grid place-items-center bg-gradient-cyber">
-                          <Server className="h-4 w-4 text-white" />
-                        </span>
-                        <span className="text-sm font-medium">{n.label}</span>
-                        <span className="ml-auto text-[10px] font-mono text-muted-foreground">
-                          layer {i + 1}
-                        </span>
-                      </button>
-                    </HoverCardTrigger>
-                    <HoverCardContent
-                      side="right"
-                      align="start"
-                      sideOffset={12}
-                      className="w-80 glass border-white/10 text-foreground p-4 rounded-xl shadow-2xl">
-                      <div className="font-mono text-[10px] uppercase tracking-widest text-cyber-cyan">
-                        stage {i + 1} / {ARCH_NODES.length}
-                      </div>
-                      <div className="mt-1 font-display text-base font-semibold">{n.label}</div>
-                      <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{n.desc}</p>
-                      {n.tools && n.tools.length > 0 && (
-                        <div className="mt-3">
-                          <div className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground mb-1.5">tooling</div>
-                          <div className="flex flex-wrap gap-1">
-                            {n.tools.slice(0, 10).map(t => (
-                              <span key={t} className="px-1.5 py-0.5 rounded text-[10px] font-mono border border-white/10 bg-white/[0.03] text-cyber-cyan">{t}</span>
-                            ))}
-                            {n.tools.length > 10 && (
-                              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono text-muted-foreground">
-                                +{n.tools.length - 10} more
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      )}
-                      <div className="mt-3 pt-3 border-t border-white/5 text-[10px] font-mono text-muted-foreground">
-                        Click to pin in the inspector →
-                      </div>
-                    </HoverCardContent>
-                  </HoverCard>
-                  {i < ARCH_NODES.length - 1 && (
-                    <svg width="2" height="30" className="my-1 overflow-visible">
-                      <line x1="1" y1="0" x2="1" y2="30" stroke="url(#g)" strokeWidth="2" className="dash-flow" />
-                      <defs>
-                        <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#3B82F6" />
-                          <stop offset="100%" stopColor="#8B5CF6" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                  )}
-                </div>
-              ))}
-
-            </div>
-          </div>
-
-          <div className="glass rounded-3xl p-6 sticky top-24 h-fit">
-            <div className="font-mono text-xs text-cyber-cyan mb-3">// inspector</div>
-            {activeNode ? (
-              <motion.div key={activeNode.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-                <div className="font-display text-xl font-semibold">{activeNode.label}</div>
-                <p className="mt-2 text-sm text-muted-foreground">{activeNode.desc}</p>
-                {activeNode.tools && activeNode.tools.length > 0 && (
-                  <div className="mt-4">
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground mb-2">tooling</div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {activeNode.tools.map(t => (
-                        <span key={t} className="px-2 py-0.5 rounded-md text-[11px] font-mono border border-white/10 bg-white/[0.03] text-cyber-cyan">{t}</span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                <div className="mt-4 space-y-2 text-xs font-mono">
-                  <div className="flex justify-between"><span className="text-muted-foreground">region</span><span>us-east-1</span></div>
-                  <div className="flex justify-between"><span className="text-muted-foreground">status</span><span className="text-emerald-400">healthy</span></div>
-                </div>
-              </motion.div>
-            ) : (
-              <p className="text-sm text-muted-foreground">
-                Select a stage to see the tools, controls and AWS services that make it up.
-              </p>
-            )}
-
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ---------------------------------------------- CI/CD Pipeline --- */
 
@@ -2025,7 +1904,7 @@ function Portfolio() {
         <Experience />
         <Projects />
         <Achievements />
-        <Architecture />
+        
         <Pipeline />
         <Blog />
         <Contact />
