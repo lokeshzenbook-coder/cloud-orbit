@@ -500,7 +500,7 @@ function Hero() {
           <motion.h1
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
             className="mt-6 font-display text-5xl md:text-7xl font-bold leading-[1.05]">
-            Hi, I'm <span className="text-gradient">Alex Rivera</span>
+            Hi, I'm <span className="text-gradient">&nbsp;G R Lokesh</span>
           </motion.h1>
 
           <motion.p
