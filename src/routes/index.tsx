@@ -2027,7 +2027,6 @@ function Portfolio() {
         <Achievements />
         <Architecture />
         <Pipeline />
-        
         <Blog />
         <Contact />
       </main>
