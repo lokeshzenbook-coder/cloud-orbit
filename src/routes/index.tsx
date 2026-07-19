@@ -46,6 +46,7 @@ const NAV = [
   { id: "about", label: "About" },
   { id: "skills", label: "Skills" },
   { id: "projects", label: "Projects" },
+  { id: "impact", label: "Impact" },
   { id: "architecture", label: "Architecture" },
   { id: "pipeline", label: "Pipeline" },
   { id: "security", label: "Security" },
@@ -843,7 +844,210 @@ function Experience() {
   );
 }
 
+/* ------------------------------------------------------ Achievements --- */
+
+const ACHIEVEMENTS = [
+  {
+    category: "AWS EKS",
+    icon: Boxes,
+    color: "#3B82F6",
+    date: "2024 – 2026",
+    org: "ASICS Technologies",
+    headline: "Multi-tenant EKS platform for 15+ microservices",
+    metrics: [
+      { k: "Uptime SLA", v: "99.95%" },
+      { k: "Node cost", v: "−42%" },
+      { k: "Pod scale-out", v: "< 40s" },
+    ],
+    bullets: [
+      "Migrated managed node groups to Karpenter with spot-first pools across 3 AZs.",
+      "Enforced network policies + Istio mTLS across 4 namespaces and 15+ services.",
+      "Cut cold-start on autoscaling events from ~3 min to under 40s.",
+    ],
+  },
+  {
+    category: "GitOps",
+    icon: GitBranch,
+    color: "#8B5CF6",
+    date: "2023 – 2025",
+    org: "L&T Construction · ASICS",
+    headline: "Argo CD ApplicationSets across 12 environments",
+    metrics: [
+      { k: "Deploy time", v: "−60%" },
+      { k: "Failed rollouts", v: "−75%" },
+      { k: "MTTR", v: "−50%" },
+    ],
+    bullets: [
+      "Replaced 40+ hand-rolled Jenkins jobs with a single GitOps promotion flow.",
+      "Introduced progressive delivery (Argo Rollouts) with automated analysis gates.",
+      "Every prod change now auditable via a signed Git commit — zero drift in 9 months.",
+    ],
+  },
+  {
+    category: "IaC",
+    icon: FileCode,
+    color: "#06B6D4",
+    date: "2021 – 2024",
+    org: "Larsen & Toubro Construction",
+    headline: "Terraform across 12 AWS accounts, 200+ modules reused",
+    metrics: [
+      { k: "Account provisioning", v: "2 days → 25 min" },
+      { k: "Drift incidents", v: "−90%" },
+      { k: "Modules reused", v: "18" },
+    ],
+    bullets: [
+      "Built a composable Terraform module library with Terratest + Checkov in CI.",
+      "Landing zone via AWS Control Tower + Terraform bootstrap on every new account.",
+      "Enforced least-privilege IAM via reusable policy modules and IRSA for workloads.",
+    ],
+  },
+  {
+    category: "Secure CI/CD",
+    icon: ShieldCheck,
+    color: "#22D3EE",
+    date: "2022 – 2026",
+    org: "Cross-org platform work",
+    headline: "DevSecOps pipeline shift-left across 45+ services",
+    metrics: [
+      { k: "Critical CVEs in prod", v: "−96%" },
+      { k: "Pipeline duration", v: "22m → 7m" },
+      { k: "SBOM coverage", v: "100%" },
+    ],
+    bullets: [
+      "Wired SonarQube, Trivy, Snyk, Checkov, and SBOM generation into one reusable workflow.",
+      "Signed images with Cosign; Argo CD verifies signatures before promoting to prod.",
+      "Secrets moved from CI variables to HashiCorp Vault + IRSA — zero long-lived creds.",
+    ],
+  },
+  {
+    category: "FinOps",
+    icon: GaugeCircle,
+    color: "#A78BFA",
+    date: "2024 – 2025",
+    org: "ASICS Technologies",
+    headline: "Cloud cost program with per-team showback",
+    metrics: [
+      { k: "Monthly AWS bill", v: "−30%" },
+      { k: "Idle spend", v: "−68%" },
+      { k: "Right-sizing PRs", v: "120+" },
+    ],
+    bullets: [
+      "Karpenter spot pools + consolidation; graviton adoption where compatible.",
+      "Grafana cost dashboards per namespace made spend visible to product teams.",
+      "Automated nightly shutdown of non-prod EKS node groups and RDS instances.",
+    ],
+  },
+  {
+    category: "Observability",
+    icon: Activity,
+    color: "#34D399",
+    date: "2022 – 2024",
+    org: "Larsen & Toubro Construction",
+    headline: "Prometheus + Grafana + Loki stack, SLO-driven",
+    metrics: [
+      { k: "Alert noise", v: "−70%" },
+      { k: "SLOs tracked", v: "45" },
+      { k: "P1 detection", v: "< 90s" },
+    ],
+    bullets: [
+      "Rolled out burn-rate alerting on error budgets — retired 200+ symptom-based alerts.",
+      "Unified logs, metrics, and traces (OpenTelemetry) behind a single Grafana pane.",
+      "On-call satisfaction score went from 2.9 → 4.4 / 5 in two quarters.",
+    ],
+  },
+];
+
+function Achievements() {
+  return (
+    <section id="impact" className="relative py-24 md:py-32">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <SectionHeading
+          eyebrow="// impact"
+          title={<>Measurable <span className="text-gradient">outcomes</span>, not vibes</>}
+          description="Selected results from AWS EKS, GitOps, Infrastructure-as-Code, and secure CI/CD work across the last five years."
+        />
+
+        <div className="grid md:grid-cols-2 gap-5">
+          {ACHIEVEMENTS.map((a, i) => {
+            const Icon = a.icon;
+            return (
+              <motion.article
+                key={a.category}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ delay: i * 0.06, duration: 0.5 }}
+                className="group relative glass rounded-3xl p-6 md:p-7 border border-white/10 hover-glow overflow-hidden"
+              >
+                <div
+                  className="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full opacity-20 blur-3xl transition group-hover:opacity-40"
+                  style={{ background: `radial-gradient(circle, ${a.color} 0%, transparent 70%)` }}
+                />
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="h-10 w-10 rounded-xl grid place-items-center border border-white/10"
+                      style={{ background: `${a.color}22`, color: a.color }}
+                    >
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <div className="font-mono text-[10px] uppercase tracking-widest text-cyber-cyan">
+                        {a.category}
+                      </div>
+                      <div className="text-xs text-muted-foreground">{a.org}</div>
+                    </div>
+                  </div>
+                  <span className="font-mono text-[10px] text-muted-foreground whitespace-nowrap">
+                    {a.date}
+                  </span>
+                </div>
+
+                <h3 className="mt-5 text-lg md:text-xl font-semibold leading-snug">
+                  {a.headline}
+                </h3>
+
+                <div className="mt-5 grid grid-cols-3 gap-2">
+                  {a.metrics.map((m) => (
+                    <div
+                      key={m.k}
+                      className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5 text-center"
+                    >
+                      <div
+                        className="font-display text-lg md:text-xl font-bold leading-none"
+                        style={{ color: a.color }}
+                      >
+                        {m.v}
+                      </div>
+                      <div className="mt-1 text-[10px] text-muted-foreground uppercase tracking-wide">
+                        {m.k}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <ul className="mt-5 space-y-2 text-sm text-muted-foreground">
+                  {a.bullets.map((b) => (
+                    <li key={b} className="flex gap-2">
+                      <CircleCheck
+                        className="h-4 w-4 mt-0.5 shrink-0"
+                        style={{ color: a.color }}
+                      />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* --------------------------------------------------------- Projects --- */
+
 
 function Projects() {
   return (
@@ -1742,6 +1946,7 @@ function Portfolio() {
         <Certs />
         <Experience />
         <Projects />
+        <Achievements />
         <Architecture />
         <Pipeline />
         <Security />
