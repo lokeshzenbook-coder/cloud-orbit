@@ -29,22 +29,70 @@ function ResumePreviewModal() {
   const [source, setSource] = useState<"hero" | "contact">("hero");
   const [loaded, setLoaded] = useState(false);
   const pdfUrl = "/GR_Lokesh_Resume.pdf";
+  const titleId = "resume-preview-title";
+  const descId = "resume-preview-desc";
+  const downloadBtnRef = useRef<HTMLButtonElement | null>(null);
+  const closeBtnRef = useRef<HTMLButtonElement | null>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  const lastFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const onOpen = (e: Event) => {
       const detail = (e as CustomEvent).detail as { source?: "hero" | "contact" } | undefined;
+      lastFocusRef.current = (document.activeElement as HTMLElement) ?? null;
       setSource(detail?.source ?? "hero");
       setLoaded(false);
       setOpen(true);
     };
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
     window.addEventListener("open-resume-preview", onOpen as EventListener);
-    window.addEventListener("keydown", onKey);
-    return () => {
-      window.removeEventListener("open-resume-preview", onOpen as EventListener);
-      window.removeEventListener("keydown", onKey);
-    };
+    return () => window.removeEventListener("open-resume-preview", onOpen as EventListener);
   }, []);
+
+  // Focus management + focus trap + Escape
+  useEffect(() => {
+    if (!open) {
+      lastFocusRef.current?.focus?.();
+      return;
+    }
+    // move focus into the dialog on open
+    const t = window.setTimeout(() => downloadBtnRef.current?.focus(), 30);
+
+    const getFocusable = (): HTMLElement[] => {
+      const root = dialogRef.current;
+      if (!root) return [];
+      return Array.from(
+        root.querySelectorAll<HTMLElement>(
+          'a[href],button:not([disabled]),textarea:not([disabled]),input:not([disabled]),select:not([disabled]),iframe,[tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((el) => !el.hasAttribute("aria-hidden") && el.offsetParent !== null);
+    };
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.stopPropagation();
+        setOpen(false);
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const items = getFocusable();
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+      if (e.shiftKey && (active === first || !dialogRef.current?.contains(active))) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey, true);
+    return () => {
+      window.clearTimeout(t);
+      document.removeEventListener("keydown", onKey, true);
+    };
+  }, [open]);
 
   useEffect(() => {
     if (typeof document === "undefined") return;
@@ -69,58 +117,74 @@ function ResumePreviewModal() {
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
           className="fixed inset-0 z-[150] grid place-items-center p-4 sm:p-8 bg-black/70 backdrop-blur-md"
           onClick={() => setOpen(false)}
+          aria-hidden={false}
         >
           <motion.div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
+            aria-describedby={descId}
+            tabIndex={-1}
             initial={{ opacity: 0, y: 20, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.98 }}
             transition={{ type: "spring", stiffness: 220, damping: 24 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-4xl h-[85vh] rounded-2xl overflow-hidden glass border border-white/10 shadow-[0_30px_80px_-20px_rgba(59,130,246,0.4)] flex flex-col"
+            className="relative w-full max-w-4xl h-[85vh] rounded-2xl overflow-hidden glass border border-white/10 shadow-[0_30px_80px_-20px_rgba(59,130,246,0.4)] flex flex-col outline-none focus-visible:ring-2 focus-visible:ring-cyber-cyan/60"
           >
             <div className="flex items-center justify-between gap-3 px-4 sm:px-5 py-3 border-b border-white/10 bg-white/[0.02]">
               <div className="flex items-center gap-2 min-w-0">
-                <ScrollText className="h-4 w-4 text-cyber-cyan shrink-0" />
+                <ScrollText className="h-4 w-4 text-cyber-cyan shrink-0" aria-hidden="true" />
                 <div className="min-w-0">
-                  <div className="text-sm font-medium truncate">GR_Lokesh_Resume.pdf</div>
-                  <div className="text-[11px] font-mono text-muted-foreground truncate">preview · source: {source}</div>
+                  <h2 id={titleId} className="text-sm font-medium truncate">GR_Lokesh_Resume.pdf</h2>
+                  <p id={descId} className="text-[11px] font-mono text-muted-foreground truncate">
+                    Resume preview · source: {source}
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <button
+                  ref={downloadBtnRef}
                   onClick={handleDownload}
-                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium bg-gradient-cyber text-white shadow-[0_10px_30px_-10px_rgba(59,130,246,0.7)] hover:opacity-95 transition"
+                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium bg-gradient-cyber text-white shadow-[0_10px_30px_-10px_rgba(59,130,246,0.7)] hover:opacity-95 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
                 >
-                  <Download className="h-4 w-4" /> Download
+                  <Download className="h-4 w-4" aria-hidden="true" /> Download
                 </button>
                 <a
                   href={pdfUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hidden sm:inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm border border-white/15 glass hover:text-white transition"
+                  className="hidden sm:inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm border border-white/15 glass hover:text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-cyber-cyan/60"
                 >
-                  <ExternalLink className="h-4 w-4" /> New tab
+                  <ExternalLink className="h-4 w-4" aria-hidden="true" /> New tab
                 </a>
                 <button
+                  ref={closeBtnRef}
                   onClick={() => setOpen(false)}
-                  aria-label="Close preview"
-                  className="p-2 rounded-lg border border-white/10 hover:bg-white/[0.06] transition"
+                  aria-label="Close resume preview"
+                  className="p-2 rounded-lg border border-white/10 hover:bg-white/[0.06] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-cyber-cyan/60"
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
             </div>
             <div className="relative flex-1 bg-[#0b1020]">
               {!loaded && (
-                <div className="absolute inset-0 grid place-items-center text-muted-foreground font-mono text-xs">
+                <div
+                  role="status"
+                  aria-live="polite"
+                  className="absolute inset-0 grid place-items-center text-muted-foreground font-mono text-xs"
+                >
                   <div className="flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-cyber-cyan animate-pulse" />
+                    <span className="h-2 w-2 rounded-full bg-cyber-cyan animate-pulse" aria-hidden="true" />
                     loading preview…
                   </div>
                 </div>
               )}
               <iframe
-                title="Resume preview"
+                title="Resume PDF preview"
+                aria-label="Resume PDF preview. Use the Download button to save the file."
                 src={`${pdfUrl}#view=FitH&toolbar=0`}
                 className="absolute inset-0 h-full w-full"
                 onLoad={() => setLoaded(true)}
