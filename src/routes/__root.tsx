@@ -13,6 +13,9 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
+  useEffect(() => {
+    document.title = "404 — Page not found · G R Lokesh";
+  }, []);
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
@@ -20,7 +23,7 @@ function NotFoundComponent() {
         <h1 className="text-7xl font-bold text-gradient">404</h1>
         <h2 className="mt-4 text-xl font-semibold">Pod not found</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          The resource you requested is not scheduled on any node.
+          This route isn't scheduled on any node in G R Lokesh's cluster.
         </p>
         <div className="mt-6">
           <Link
@@ -34,6 +37,7 @@ function NotFoundComponent() {
     </div>
   );
 }
+
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
@@ -66,15 +70,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Alex Rivera — Senior DevOps & DevSecOps Engineer" },
+      { title: "G R Lokesh — Senior DevOps & DevSecOps Engineer" },
       {
         name: "description",
         content:
-          "Portfolio of Alex Rivera, Senior DevOps & DevSecOps Engineer. AWS, Kubernetes, Terraform, GitOps, Platform Engineering and Cloud Security at scale.",
+          "Portfolio of G R Lokesh, Senior DevOps & DevSecOps Engineer. AWS, Kubernetes, Terraform, GitOps, Platform Engineering and Cloud Security at scale.",
       },
-      { name: "author", content: "Alex Rivera" },
+      { name: "author", content: "G R Lokesh" },
       { name: "theme-color", content: "#050816" },
-      { property: "og:title", content: "Alex Rivera — Senior DevOps & DevSecOps Engineer" },
+      { property: "og:title", content: "G R Lokesh — Senior DevOps & DevSecOps Engineer" },
       {
         property: "og:description",
         content:
