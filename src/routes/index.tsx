@@ -882,7 +882,7 @@ function About() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+            initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.05 }} transition={{ duration: 0.5, ease: "easeOut" }}
             className="glass rounded-3xl p-8 hover-glow">
             <div className="font-mono text-xs text-cyber-cyan mb-4">~/currently</div>
             <ul className="space-y-4 text-sm">
