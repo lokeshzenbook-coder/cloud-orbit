@@ -388,17 +388,24 @@ const PROJECTS = [
   },
 ];
 
-const ARCH_NODES = [
-  { id: "route53", label: "Route 53", desc: "DNS, health-checked failover" },
-  { id: "cf", label: "CloudFront", desc: "Global CDN + WAF" },
-  { id: "alb", label: "ALB", desc: "TLS termination, path routing" },
-  { id: "eks", label: "EKS Cluster", desc: "Karpenter-managed, multi-AZ" },
-  { id: "svc", label: "Services / Pods", desc: "Istio mTLS, NGINX Ingress" },
-  { id: "rds", label: "RDS + Redis", desc: "PostgreSQL multi-AZ, ElastiCache" },
-  { id: "s3", label: "S3 + CloudWatch", desc: "Encrypted objects, log aggregation" },
-  { id: "obs", label: "Prometheus + Grafana", desc: "SLOs, alerts, dashboards" },
-  { id: "gitops", label: "Argo CD ← GitHub Actions", desc: "GitOps continuous delivery" },
+const ARCH_NODES: Array<{ id: string; label: string; desc: string; tools?: string[] }> = [
+  { id: "src", label: "Source Control", desc: "Feature branch / PR-driven workflow. Trunk-based delivery with signed commits.", tools: ["GitHub", "GitLab", "Signed commits"] },
+  { id: "presec", label: "Pre-Build Security Scans", desc: "Shift-left scanning on every PR — secrets, SAST, and dependency vulnerabilities.", tools: ["Gitleaks", "Semgrep", "SonarQube SAST", "Snyk", "Trivy FS"] },
+  { id: "sbom", label: "SBOM & License Compliance", desc: "Software composition analysis, SBOM generation and license posture enforcement.", tools: ["Syft", "CycloneDX", "Trivy", "Snyk License"] },
+  { id: "gate", label: "Quality Gate", desc: "SonarQube quality gate — build is blocked if coverage, bugs, or hotspots regress.", tools: ["SonarQube", "Coverage thresholds", "Blocking gate"] },
+  { id: "build", label: "Build & Unit Test", desc: "Language-native build, unit tests and code-coverage reporting run in parallel matrices.", tools: ["Maven", "Gradle", "npm", "Go", "JUnit", "PyTest", "Jest", "JaCoCo", "Istanbul"] },
+  { id: "img", label: "Container Build & Scan", desc: "Docker image built from a hardened base, linted, scanned, optionally malware-checked, then signed.", tools: ["Docker", "Hadolint", "Trivy", "Grype", "ClamAV", "Cosign"] },
+  { id: "ecr", label: "Amazon ECR", desc: "Immutable, versioned, signed images pushed to ECR with lifecycle policies + scan-on-push.", tools: ["Amazon ECR", "Immutable tags", "Cosign signatures"] },
+  { id: "tf", label: "Terraform IaC", desc: "validate → fmt → Checkov → plan → manual approval (prod) → apply. Landing-zone modules reused across accounts.", tools: ["Terraform", "terraform fmt", "Checkov", "Terraform Plan", "Manual Approval", "Terraform Apply"] },
+  { id: "aws", label: "AWS Infrastructure", desc: "Provisioned via Terraform — networking, compute, data, identity and observability primitives.", tools: ["VPC", "Public/Private Subnets", "NAT Gateway", "ALB", "IAM", "Route 53", "ACM", "EKS", "Node Groups", "ECR", "RDS", "ElastiCache", "S3", "Secrets Manager", "CloudWatch", "KMS"] },
+  { id: "argo", label: "GitOps · Argo CD", desc: "Argo CD watches the Git repo of manifests / Helm charts and syncs desired state to EKS.", tools: ["Argo CD", "Helm", "Kustomize", "ApplicationSets", "Argo Rollouts"] },
+  { id: "k8s", label: "Kubernetes Runtime (EKS)", desc: "Hardened namespaces, policy-as-code, IRSA-backed workloads, secrets from AWS Secrets Manager via CSI.", tools: ["Namespaces", "NetworkPolicies", "Pod Security Standards", "Kyverno", "Gatekeeper", "ResourceQuotas", "IRSA", "Secrets Store CSI Driver", "AWS Secrets Manager", "Deployments", "Services", "AWS Load Balancer Controller", "ALB"] },
+  { id: "rtsec", label: "Runtime Security", desc: "Continuous threat detection and CIS-benchmark posture on both cluster and AWS account planes.", tools: ["Falco", "Kubescape", "Trivy Operator", "Kube-Bench", "Kube-Hunter", "GuardDuty", "AWS Security Hub", "Inspector", "CloudTrail", "AWS Config"] },
+  { id: "obs", label: "Observability", desc: "Metrics, logs and traces unified behind Grafana — SLO-driven alerting on error budgets.", tools: ["Prometheus", "Grafana", "Loki", "Fluent Bit", "OpenTelemetry", "Jaeger", "CloudWatch Logs", "CloudWatch Metrics", "AlertManager"] },
+  { id: "alert", label: "Alerting & On-Call", desc: "Routed alerts with escalation policies and rich context links back to dashboards + runbooks.", tools: ["Slack", "Microsoft Teams", "PagerDuty", "Opsgenie", "SNS", "Email"] },
+  { id: "cm", label: "Continuous Monitoring", desc: "Feedback loop — findings, SLO burns and cost signals feed back into the next PR.", tools: ["SLO Burn Alerts", "Cost Anomaly", "Security Hub Findings", "Compliance Drift"] },
 ];
+
 
 const PIPELINE_STAGES = [
   { name: "Git Push", icon: GitBranch },
@@ -1342,10 +1349,11 @@ function Architecture() {
     <section id="architecture" className="relative py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
-          eyebrow="// aws · reference architecture"
-          title={<>Interactive <HL gradient>cloud topology</HL></>}
-          description="Click any node to inspect. This is the pattern I ship for production workloads on AWS."
+          eyebrow="// aws · devsecops reference architecture"
+          title={<>End-to-end <HL gradient>DevSecOps pipeline</HL></>}
+          description="From a developer's pull request to production on Amazon EKS — every stage is scanned, signed, provisioned as code, and continuously monitored. Click any stage to inspect the tooling."
         />
+
 
         <div className="grid lg:grid-cols-[1fr_320px] gap-6">
           <div className="glass rounded-3xl p-6 md:p-10 relative overflow-hidden">
@@ -1389,17 +1397,27 @@ function Architecture() {
               <motion.div key={activeNode.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
                 <div className="font-display text-xl font-semibold">{activeNode.label}</div>
                 <p className="mt-2 text-sm text-muted-foreground">{activeNode.desc}</p>
+                {activeNode.tools && activeNode.tools.length > 0 && (
+                  <div className="mt-4">
+                    <div className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground mb-2">tooling</div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {activeNode.tools.map(t => (
+                        <span key={t} className="px-2 py-0.5 rounded-md text-[11px] font-mono border border-white/10 bg-white/[0.03] text-cyber-cyan">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 <div className="mt-4 space-y-2 text-xs font-mono">
                   <div className="flex justify-between"><span className="text-muted-foreground">region</span><span>us-east-1</span></div>
-                  <div className="flex justify-between"><span className="text-muted-foreground">tf module</span><span className="text-cyber-cyan">v2.14.0</span></div>
                   <div className="flex justify-between"><span className="text-muted-foreground">status</span><span className="text-emerald-400">healthy</span></div>
                 </div>
               </motion.div>
             ) : (
               <p className="text-sm text-muted-foreground">
-                Select a node to see its purpose, module version, and health.
+                Select a stage to see the tools, controls and AWS services that make it up.
               </p>
             )}
+
           </div>
         </div>
       </div>
