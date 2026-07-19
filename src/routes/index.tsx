@@ -1946,6 +1946,7 @@ function Portfolio() {
         <Certs />
         <Experience />
         <Projects />
+        <Achievements />
         <Architecture />
         <Pipeline />
         <Security />
