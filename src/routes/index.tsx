@@ -921,8 +921,9 @@ function Skills() {
           description="Live-view of the tools I ship with. Hover for context, click a category to drill in."
         />
 
-        <div className="grid lg:grid-cols-[280px_1fr] gap-6">
-          <div className="glass rounded-2xl p-3 space-y-1">
+        <div className="grid lg:grid-cols-[280px_1fr] gap-6 items-start">
+          <div className="glass rounded-2xl p-3 space-y-1 self-start">
+
             {SKILL_CATEGORIES.map((c, i) => {
               const Icon = c.icon;
               const isActive = i === active;
