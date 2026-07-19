@@ -1208,11 +1208,11 @@ function Achievements() {
             return (
               <motion.article
                 key={a.category}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ delay: i * 0.06, duration: 0.5 }}
-                className="group relative glass rounded-3xl p-6 md:p-7 border border-white/10 hover-glow overflow-hidden"
+                viewport={{ once: true, amount: 0.05 }}
+                transition={{ delay: Math.min(i * 0.05, 0.2), duration: 0.5, ease: "easeOut" }}
+                className="group relative glass rounded-3xl p-6 md:p-7 border border-white/10 hover-glow overflow-hidden flex flex-col"
               >
                 <div
                   className="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full opacity-20 blur-3xl transition group-hover:opacity-40"
