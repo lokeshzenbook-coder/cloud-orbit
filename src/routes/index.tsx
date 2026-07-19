@@ -1397,17 +1397,27 @@ function Architecture() {
               <motion.div key={activeNode.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
                 <div className="font-display text-xl font-semibold">{activeNode.label}</div>
                 <p className="mt-2 text-sm text-muted-foreground">{activeNode.desc}</p>
+                {activeNode.tools && activeNode.tools.length > 0 && (
+                  <div className="mt-4">
+                    <div className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground mb-2">tooling</div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {activeNode.tools.map(t => (
+                        <span key={t} className="px-2 py-0.5 rounded-md text-[11px] font-mono border border-white/10 bg-white/[0.03] text-cyber-cyan">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 <div className="mt-4 space-y-2 text-xs font-mono">
                   <div className="flex justify-between"><span className="text-muted-foreground">region</span><span>us-east-1</span></div>
-                  <div className="flex justify-between"><span className="text-muted-foreground">tf module</span><span className="text-cyber-cyan">v2.14.0</span></div>
                   <div className="flex justify-between"><span className="text-muted-foreground">status</span><span className="text-emerald-400">healthy</span></div>
                 </div>
               </motion.div>
             ) : (
               <p className="text-sm text-muted-foreground">
-                Select a node to see its purpose, module version, and health.
+                Select a stage to see the tools, controls and AWS services that make it up.
               </p>
             )}
+
           </div>
         </div>
       </div>
