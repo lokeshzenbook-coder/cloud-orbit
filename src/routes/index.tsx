@@ -3,6 +3,8 @@ import { motion, useScroll, useSpring, useTransform, AnimatePresence, useReduced
 import { useEffect, useMemo, useRef, useState } from "react";
 import { SmoothScroll, CustomCursor, Blog, AIAssistant, ARTICLES } from "@/components/portfolio-extras";
 import { supabase } from "@/integrations/supabase/client";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+
 import {
   Cloud, Server, Shield, GitBranch, Container, Terminal, Zap, Activity,
   Github, Linkedin, Mail, Download, ExternalLink, ArrowRight, Cpu,
