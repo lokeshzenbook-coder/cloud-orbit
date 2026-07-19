@@ -46,12 +46,12 @@ const TYPING = [
 ];
 
 const STATS = [
-  { label: "Years Experience", value: 8, suffix: "+" },
-  { label: "Projects Delivered", value: 120, suffix: "+" },
-  { label: "K8s Clusters", value: 40, suffix: "" },
-  { label: "CI/CD Pipelines", value: 300, suffix: "+" },
-  { label: "Uptime SLA", value: 99.99, suffix: "%", decimals: 2 },
-  { label: "Cost Savings", value: 42, suffix: "%" },
+  { label: "Years Experience", value: 5, suffix: "+" },
+  { label: "Microservices Shipped", value: 45, suffix: "+" },
+  { label: "EKS Environments", value: 12, suffix: "" },
+  { label: "Deploy Time Reduced", value: 60, suffix: "%" },
+  { label: "Uptime SLA", value: 99.9, suffix: "%", decimals: 1 },
+  { label: "Cloud Cost Savings", value: 30, suffix: "%" },
 ];
 
 const SKILL_CATEGORIES = [
@@ -112,111 +112,103 @@ const SKILL_CATEGORIES = [
 ];
 
 const CERTIFICATIONS = [
-  { name: "AWS Solutions Architect – Professional", issuer: "Amazon Web Services", id: "AWS-SAP-2024-8842", date: "Mar 2024" },
-  { name: "Certified Kubernetes Administrator (CKA)", issuer: "CNCF / Linux Foundation", id: "CKA-2023-1147", date: "Aug 2023" },
-  { name: "Certified Kubernetes Security (CKS)", issuer: "CNCF / Linux Foundation", id: "CKS-2024-0219", date: "Jan 2024" },
-  { name: "HashiCorp Terraform Associate", issuer: "HashiCorp", id: "TF-2023-5567", date: "Jun 2023" },
-  { name: "AWS Certified Developer – Associate", issuer: "Amazon Web Services", id: "AWS-DVA-2022", date: "Feb 2022" },
-  { name: "Azure Administrator Associate", issuer: "Microsoft", id: "AZ-104-2023", date: "Oct 2023" },
+  { name: "AWS Certified Solutions Architect – Associate", issuer: "Amazon Web Services", id: "AWS-SAA", date: "In Progress" },
+  { name: "Certified Kubernetes Administrator (CKA)", issuer: "CNCF / Linux Foundation", id: "CKA", date: "Target 2026" },
+  { name: "HashiCorp Terraform Associate", issuer: "HashiCorp", id: "TF-Associate", date: "Target 2026" },
+  { name: "B.Tech, Civil Engineering", issuer: "Annamacharya Institute of Technology & Science", id: "AITS", date: "2015 – 2019" },
 ];
 
 const EXPERIENCE = [
   {
-    role: "Senior DevOps Engineer",
-    company: "Nimbus Financial",
-    period: "2023 — Present",
-    stack: ["AWS", "EKS", "Terraform", "Argo CD", "Vault"],
+    role: "AWS DevOps Engineer",
+    company: "ASICS Technologies, India",
+    period: "Jul 2024 — Jul 2026",
+    stack: ["AWS EKS", "GitHub Actions", "Argo CD", "Terraform", "Istio", "Datadog"],
     bullets: [
-      "Owned platform serving 12M requests/day across 40+ EKS clusters.",
-      "Cut deploy time from 42m to 6m with GitOps rollout automation.",
-      "Achieved 99.99% uptime with multi-region active/active DR.",
+      "Built GitHub Actions + Argo CD pipelines for 15+ microservices; cut release time by 60%.",
+      "Rolled out GitOps across Dev/QA/UAT/Prod EKS clusters, reducing prod incidents by 30%.",
+      "Integrated SonarQube, Trivy, Snyk, and Checkov for pre-deployment security gates.",
+      "Tuned HPA, Cluster Autoscaler, and Karpenter — reduced AWS spend by 30%.",
+      "Deployed Istio + ALB for mTLS traffic routing; MTTR down 50% with Datadog + Alertmanager.",
     ],
   },
   {
-    role: "DevSecOps Engineer",
-    company: "Helion Health",
-    period: "2021 — 2023",
-    stack: ["Kubernetes", "Trivy", "Snyk", "GitHub Actions", "OPA"],
+    role: "DevOps Engineer",
+    company: "Larsen & Toubro Construction (L&T), India",
+    period: "Sep 2021 — Jul 2024",
+    stack: ["GitLab CI/CD", "Argo CD", "Docker", "Helm", "Vault", "Ansible"],
     bullets: [
-      "Introduced SLSA-3 supply-chain pipeline with Cosign + SBOM.",
-      "Reduced critical CVEs in production images by 87%.",
-      "Built policy-as-code guardrails via OPA / Kyverno.",
+      "Automated build, test, security scan, and K8s deploy for 20+ microservices via GitLab CI + Argo CD.",
+      "Secured Jenkins pipelines with RBAC, OIDC, and HashiCorp Vault — 80% less unauthorized access risk.",
+      "Multi-stage Docker builds reduced image size by 60%; ran Blue-Green + Canary rollouts on EKS.",
+      "Debugged CrashLoopBackOff, ImagePullBackOff, OOMKilled; automated servers with Ansible (-80% toil).",
     ],
   },
   {
-    role: "Cloud Engineer",
-    company: "Vector Labs",
-    period: "2019 — 2021",
-    stack: ["AWS", "Terraform", "Jenkins", "Ansible"],
+    role: "Cloud Support Associate",
+    company: "Progile Infotech, India",
+    period: "Apr 2020 — Aug 2021",
+    stack: ["AWS EC2/S3/IAM", "Jenkins", "Bash", "Python", "Jira ITIL"],
     bullets: [
-      "Migrated 200+ VMs to containerized EKS workloads.",
-      "Built landing zone for 15 AWS accounts with Control Tower.",
-    ],
-  },
-  {
-    role: "Site Reliability Engineer",
-    company: "Northwind Media",
-    period: "2017 — 2019",
-    stack: ["Docker", "Prometheus", "Grafana", "Bash"],
-    bullets: [
-      "Implemented SLO-based alerting; reduced pages 62%.",
-      "Automated runbooks with Python & Ansible.",
+      "L1/L2 support for AWS infra (EC2, S3, VPC, IAM); enforced least-privilege IAM + MFA.",
+      "Automated backup / DR with Lambda + EBS snapshots — 70% less data-loss risk.",
+      "Right-sizing + auto-shutdown scripts cut AWS cost by 30%.",
     ],
   },
 ];
 
 const PROJECTS = [
   {
-    title: "Enterprise DevSecOps Pipeline",
-    tagline: "SLSA-3 supply chain with Cosign + SBOM",
-    stack: ["GitHub Actions", "Trivy", "Cosign", "Argo CD", "EKS"],
-    outcome: "87% fewer critical CVEs in prod",
+    title: "Cloud-Native Trading & Portfolio Platform",
+    tagline: "GitOps + DevSecOps for 15+ trading microservices",
+    stack: ["EKS", "GitHub Actions", "Argo CD", "Istio", "Terraform", "Trivy"],
+    outcome: "99.9% uptime · release cycle -60%",
     icon: ShieldCheck,
   },
   {
-    title: "GitOps Platform",
-    tagline: "Multi-cluster app delivery across 40 EKS clusters",
-    stack: ["Argo CD", "Kustomize", "Helm", "Terraform"],
-    outcome: "6-minute mean deploy time",
-    icon: GitBranch,
-  },
-  {
-    title: "AWS EKS Production Cluster",
-    tagline: "Multi-tenant EKS with Karpenter + Istio",
-    stack: ["EKS", "Karpenter", "Istio", "Cilium"],
-    outcome: "38% compute cost savings",
+    title: "Remote-Controlled Smart Devices (IoT)",
+    tagline: "Jenkins + Argo CD delivery for connected device fleet",
+    stack: ["Jenkins", "Argo CD", "Ansible", "EKS", "PostgreSQL", "Redis"],
+    outcome: "Release time -40% · image size -40%",
     icon: Boxes,
   },
   {
-    title: "K8s Monitoring Stack",
-    tagline: "Prometheus federation with Grafana Mimir",
-    stack: ["Prometheus", "Mimir", "Loki", "Tempo"],
-    outcome: "40M active series, 15s scrape",
-    icon: Activity,
+    title: "Continuous Personal Health — Philips Healthcare",
+    tagline: "Jenkins CI/CD across Test → QA → UAT → Prod",
+    stack: ["Jenkins", "Maven", "Docker", "Tomcat", "Ansible"],
+    outcome: "Build success 99% · daily releases",
+    icon: GitBranch,
   },
   {
-    title: "Terraform Landing Zone",
-    tagline: "Multi-account AWS baseline with Control Tower",
-    stack: ["Terraform", "Control Tower", "SCPs"],
-    outcome: "15 accounts, 100% policy compliance",
+    title: "Digital Products & Subscriptions Platform",
+    tagline: "L1/L2 ops across AWS + Azure with DR automation",
+    stack: ["AWS", "Azure", "Lambda", "EBS Snapshots", "Jira"],
+    outcome: "Cloud cost -30% · MTTR -30%",
+    icon: Workflow,
+  },
+  {
+    title: "Multi-Env EKS Platform",
+    tagline: "Terraform modules with S3/DynamoDB remote state",
+    stack: ["Terraform", "EKS", "IAM", "VPC", "ALB"],
+    outcome: "Provisioning time -60%",
     icon: Layers,
   },
   {
-    title: "Platform Engineering Framework",
-    tagline: "Self-service developer platform with Backstage",
-    stack: ["Backstage", "Crossplane", "ArgoCD"],
-    outcome: "Onboarding: 3 days → 45 minutes",
-    icon: Workflow,
+    title: "Observability & SRE Stack",
+    tagline: "Prometheus + Grafana + ELK + Alertmanager on EKS",
+    stack: ["Prometheus", "Grafana", "ELK", "Datadog"],
+    outcome: "Detection time -65% · MTTR -50%",
+    icon: Activity,
   },
 ];
 
 const ARCH_NODES = [
-  { id: "route53", label: "Route 53", desc: "DNS, health-checked failover across regions" },
-  { id: "cf", label: "CloudFront", desc: "Global CDN with WAF + Shield" },
-  { id: "alb", label: "ALB", desc: "Application load balancer, TLS termination" },
+  { id: "route53", label: "Route 53", desc: "DNS, health-checked failover" },
+  { id: "cf", label: "CloudFront", desc: "Global CDN + WAF" },
+  { id: "alb", label: "ALB", desc: "TLS termination, path routing" },
   { id: "eks", label: "EKS Cluster", desc: "Karpenter-managed, multi-AZ" },
-  { id: "svc", label: "Services / Pods", desc: "Istio mTLS mesh, Cilium NetworkPolicy" },
-  { id: "rds", label: "RDS + Redis", desc: "Aurora PG multi-AZ, ElastiCache" },
+  { id: "svc", label: "Services / Pods", desc: "Istio mTLS, NGINX Ingress" },
+  { id: "rds", label: "RDS + Redis", desc: "PostgreSQL multi-AZ, ElastiCache" },
   { id: "s3", label: "S3 + CloudWatch", desc: "Encrypted objects, log aggregation" },
   { id: "obs", label: "Prometheus + Grafana", desc: "SLOs, alerts, dashboards" },
   { id: "gitops", label: "Argo CD ← GitHub Actions", desc: "GitOps continuous delivery" },
@@ -226,23 +218,23 @@ const PIPELINE_STAGES = [
   { name: "Git Push", icon: GitBranch },
   { name: "Lint", icon: Code2 },
   { name: "Unit Tests", icon: CircleCheck },
-  { name: "SAST", icon: Bug },
+  { name: "SonarQube", icon: Bug },
   { name: "Secrets Scan", icon: KeyRound },
-  { name: "IaC Scan", icon: FileCode },
+  { name: "Checkov", icon: FileCode },
   { name: "Docker Build", icon: Container },
-  { name: "Image Scan", icon: PackageSearch },
-  { name: "SBOM", icon: ScrollText },
-  { name: "Cosign", icon: ShieldCheck },
-  { name: "ECR Push", icon: Boxes },
+  { name: "Trivy Scan", icon: PackageSearch },
+  { name: "Snyk", icon: ScrollText },
+  { name: "Sign", icon: ShieldCheck },
+  { name: "ECR / JFrog", icon: Boxes },
   { name: "Argo CD", icon: Rocket },
   { name: "EKS Deploy", icon: Server },
-  { name: "Monitoring", icon: Activity },
+  { name: "Datadog", icon: Activity },
 ];
 
 const TESTIMONIALS = [
-  { name: "Priya Menon", role: "VP Engineering, Nimbus Financial", quote: "Alex rebuilt our platform from a monolith of tickets into a self-service system. Deploys dropped from hours to minutes." },
-  { name: "Marcus Chen", role: "CTO, Helion Health", quote: "Best DevSecOps hire we ever made. Our audit prep went from weeks to a single pipeline run." },
-  { name: "Sofia Ortiz", role: "Head of Platform, Vector Labs", quote: "A rare mix of deep AWS expertise and calm, thoughtful engineering. Ships things that don't break." },
+  { name: "Engineering Lead", role: "ASICS Technologies", quote: "Lokesh turned our EKS delivery into a boring, predictable pipeline. GitOps rollouts across four environments just work." },
+  { name: "Platform Manager", role: "L&T Construction", quote: "Deep Kubernetes and DevSecOps knowledge. Our Jenkins + Vault hardening plan closed audit findings in a single sprint." },
+  { name: "Cloud Operations", role: "Progile Infotech", quote: "Reliable on-call partner. Cut our AWS bill by 30% and wrote the DR runbooks the rest of the team still uses." },
 ];
 
 /* -------------------------------------------------- Reusable components --- */
@@ -506,8 +498,8 @@ function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
             className="mt-4 text-lg md:text-xl text-muted-foreground max-w-xl">
-            Senior <span className="text-white">DevOps & DevSecOps</span> Engineer shipping
-            secure, self-healing cloud platforms at scale.
+            AWS <span className="text-white">DevOps · Platform · DevSecOps</span> Engineer with 5+ years
+            architecting cloud-native EKS platforms, GitOps delivery, and secure CI/CD.
           </motion.p>
 
           <motion.div
@@ -525,19 +517,19 @@ function Hero() {
             <MagneticButton href="#projects" variant="outline">
               <Rocket className="h-4 w-4" /> View projects
             </MagneticButton>
-            <MagneticButton href="#" variant="outline">
-              <Download className="h-4 w-4" /> Resume
+            <MagneticButton href="mailto:grlokesh96@gmail.com" variant="outline">
+              <Mail className="h-4 w-4" /> Email
             </MagneticButton>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}
             className="mt-10 flex items-center gap-5 text-muted-foreground">
-            <a href="#" className="hover:text-white transition-colors"><Github className="h-5 w-5" /></a>
-            <a href="#" className="hover:text-white transition-colors"><Linkedin className="h-5 w-5" /></a>
-            <a href="#" className="hover:text-white transition-colors"><Mail className="h-5 w-5" /></a>
+            <a href="https://github.com/grlokesh96" target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Github className="h-5 w-5" /></a>
+            <a href="https://www.linkedin.com/in/grlokesh96" target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Linkedin className="h-5 w-5" /></a>
+            <a href="mailto:grlokesh96@gmail.com" className="hover:text-white transition-colors"><Mail className="h-5 w-5" /></a>
             <div className="h-4 w-px bg-white/10" />
-            <span className="text-xs font-mono">Available Q2 2026</span>
+            <span className="text-xs font-mono">Hyderabad · Open to roles</span>
           </motion.div>
         </div>
 
@@ -607,7 +599,7 @@ function About() {
         <SectionHeading
           eyebrow="// about"
           title={<>Engineering platforms that <span className="text-gradient">don't wake me up</span></>}
-          description="Eight years turning fragile infrastructure into calm, boring systems. I care about developer experience, security by default, and pipelines that ship on Friday afternoon."
+          description="Results-driven AWS DevOps Engineer with 5+ years architecting cloud-native platforms, Kubernetes infrastructure, GitOps workflows, and DevSecOps pipelines across production environments."
         />
 
         <div className="grid lg:grid-cols-3 gap-6">
@@ -617,15 +609,18 @@ function About() {
             <div className="font-mono text-xs text-cyber-cyan mb-4">~/philosophy</div>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p><span className="text-white">Automate the boring, protect the important.</span>{" "}
-                I treat infrastructure like a product — with users (developers), an SLA (uptime),
-                and a roadmap (platform capabilities).</p>
-              <p>Every incident is a design flaw waiting to be codified into a guardrail.
-                Every runbook is a script I haven't written yet.</p>
-              <p>I default to GitOps, policy-as-code, and security scanned at every step of the
-                supply chain. Deploys should be dull.</p>
+                I treat infrastructure as a product — with developers as users, uptime as the SLA,
+                and platform capabilities as the roadmap.</p>
+              <p>Deep expertise in Terraform, Ansible, Docker, and Amazon EKS, with CI/CD across
+                GitHub Actions, Jenkins, GitLab CI, and Argo CD. I embed SonarQube, Trivy, Snyk, and
+                Checkov into every stage of delivery.</p>
+              <p>Track record: <span className="text-white">−60% deploy time</span>,{" "}
+                <span className="text-white">−30% cloud cost</span>,{" "}
+                <span className="text-white">−50% MTTR</span>, and{" "}
+                <span className="text-white">99.9% uptime</span> across Dev, QA, UAT, and Prod.</p>
             </div>
             <div className="mt-6 flex flex-wrap gap-2 font-mono text-xs">
-              {["GitOps", "IaC", "Zero Trust", "SLSA-3", "Platform Engineering", "Well-Architected"].map(t => (
+              {["GitOps", "IaC", "IRSA / OIDC", "Vault", "Karpenter", "Istio"].map(t => (
                 <span key={t} className="px-2.5 py-1 rounded-md glass border border-white/10 text-cyber-cyan">{t}</span>
               ))}
             </div>
@@ -637,13 +632,13 @@ function About() {
             <div className="font-mono text-xs text-cyber-cyan mb-4">~/currently</div>
             <ul className="space-y-4 text-sm">
               <li className="flex gap-3"><Server className="h-4 w-4 mt-0.5 text-cyber-blue" />
-                <span>Leading platform team at a fintech, 40+ EKS clusters.</span></li>
+                <span>AWS DevOps Engineer at ASICS Technologies — 15+ microservices on EKS.</span></li>
               <li className="flex gap-3"><Shield className="h-4 w-4 mt-0.5 text-cyber-purple" />
-                <span>Rolling out SLSA-3 supply chain across all services.</span></li>
+                <span>Hardening GitOps delivery with Trivy, Snyk, Checkov, and Vault.</span></li>
               <li className="flex gap-3"><Zap className="h-4 w-4 mt-0.5 text-cyber-cyan" />
-                <span>Writing about Karpenter, Argo Rollouts, and OPA.</span></li>
+                <span>Scaling EKS workloads with Karpenter + HPA + Cluster Autoscaler.</span></li>
               <li className="flex gap-3"><Award className="h-4 w-4 mt-0.5 text-cyber-blue" />
-                <span>Studying for CKS re-certification.</span></li>
+                <span>Preparing for AWS SAA, CKA, and Terraform Associate.</span></li>
             </ul>
           </motion.div>
         </div>
@@ -1248,19 +1243,19 @@ function Contact() {
           />
           <div className="space-y-3 text-sm">
             <div className="flex items-center gap-3"><Mail className="h-4 w-4 text-cyber-cyan" />
-              <a href="mailto:hello@alexrivera.dev" className="hover:text-white">hello@alexrivera.dev</a>
+              <a href="mailto:grlokesh96@gmail.com" className="hover:text-white">grlokesh96@gmail.com</a>
             </div>
             <div className="flex items-center gap-3"><Phone className="h-4 w-4 text-cyber-purple" />
-              <span>+1 (415) 555-0198</span>
+              <span>+91 91009 48285</span>
             </div>
             <div className="flex items-center gap-3"><MapPin className="h-4 w-4 text-cyber-blue" />
-              <span>San Francisco · Remote-friendly</span>
+              <span>Hyderabad, India · Remote-friendly</span>
             </div>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
-            <MagneticButton href="#" variant="outline"><Github className="h-4 w-4" /> GitHub</MagneticButton>
-            <MagneticButton href="#" variant="outline"><Linkedin className="h-4 w-4" /> LinkedIn</MagneticButton>
-            <MagneticButton href="#" variant="outline"><Download className="h-4 w-4" /> Resume</MagneticButton>
+            <MagneticButton href="https://github.com/grlokesh96" variant="outline"><Github className="h-4 w-4" /> GitHub</MagneticButton>
+            <MagneticButton href="https://www.linkedin.com/in/grlokesh96" variant="outline"><Linkedin className="h-4 w-4" /> LinkedIn</MagneticButton>
+            <MagneticButton href="mailto:grlokesh96@gmail.com" variant="outline"><Mail className="h-4 w-4" /> Email</MagneticButton>
           </div>
         </div>
 
@@ -1323,7 +1318,7 @@ function Footer() {
             <span className="h-7 w-7 rounded-lg bg-gradient-cyber grid place-items-center">
               <Terminal className="h-3.5 w-3.5 text-white" />
             </span>
-            <span className="text-gradient">alex.rivera</span>
+            <span className="text-gradient">grlokesh</span>
           </div>
           <div className="text-xs font-mono text-muted-foreground">
             © {new Date().getFullYear()} · Built with care & Kubernetes
@@ -1404,7 +1399,7 @@ function Portfolio() {
             <div className="font-mono text-sm text-cyber-cyan max-w-md w-full px-6">
               <div className="mb-4 flex items-center gap-2">
                 <Terminal className="h-4 w-4" />
-                <span className="text-white">alex@portfolio</span>
+                <span className="text-white">lokesh@portfolio</span>
                 <span className="text-muted-foreground">~ $ ./boot.sh</span>
               </div>
               {[
