@@ -227,7 +227,6 @@ const NAV = [
   { id: "impact", label: "Impact" },
   { id: "architecture", label: "Architecture" },
   { id: "pipeline", label: "Pipeline" },
-  
   { id: "blog", label: "Blog" },
   { id: "contact", label: "Contact" },
 ];
@@ -429,11 +428,7 @@ const PIPELINE_STAGES = [
   { name: "Datadog", icon: Activity },
 ];
 
-const TESTIMONIALS = [
-  { name: "Engineering Lead", role: "ASICS Technologies", quote: "Lokesh turned our EKS delivery into a boring, predictable pipeline. GitOps rollouts across four environments just work." },
-  { name: "Platform Manager", role: "L&T Construction", quote: "Deep Kubernetes and DevSecOps knowledge. Our Jenkins + Vault hardening plan closed audit findings in a single sprint." },
-  { name: "Cloud Operations", role: "Progile Infotech", quote: "Reliable on-call partner. Cut our AWS bill by 30% and wrote the DR runbooks the rest of the team still uses." },
-];
+
 
 /* -------------------------------------------------- Reusable components --- */
 
@@ -2032,7 +2027,6 @@ function Portfolio() {
         <Achievements />
         <Architecture />
         <Pipeline />
-        
         <Blog />
         <Contact />
       </main>
