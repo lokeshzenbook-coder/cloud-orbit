@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { SmoothScroll, CustomCursor, ThemeToggle, Blog, AIAssistant } from "@/components/portfolio-extras";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Cloud, Server, Shield, GitBranch, Container, Terminal, Zap, Activity,
@@ -48,6 +49,7 @@ const NAV = [
   { id: "architecture", label: "Architecture" },
   { id: "pipeline", label: "Pipeline" },
   { id: "security", label: "Security" },
+  { id: "blog", label: "Blog" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -1495,10 +1497,15 @@ function Portfolio() {
         <Security />
         <GitHubStrip />
         <Testimonials />
+        <Blog />
         <Contact />
       </main>
       <Footer />
       <CommandPalette open={cmd} onClose={() => setCmd(false)} />
+      <SmoothScroll />
+      <CustomCursor />
+      <ThemeToggle />
+      <AIAssistant />
     </div>
   );
 }
