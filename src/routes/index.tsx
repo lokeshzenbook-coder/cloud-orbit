@@ -3,6 +3,8 @@ import { motion, useScroll, useSpring, useTransform, AnimatePresence, useReduced
 import { useEffect, useMemo, useRef, useState } from "react";
 import { SmoothScroll, CustomCursor, Blog, AIAssistant, ARTICLES } from "@/components/portfolio-extras";
 import { supabase } from "@/integrations/supabase/client";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+
 import {
   Cloud, Server, Shield, GitBranch, Container, Terminal, Zap, Activity,
   Github, Linkedin, Mail, Download, ExternalLink, ArrowRight, Cpu,
@@ -1360,21 +1362,56 @@ function Architecture() {
             <div className="absolute inset-0 grid-bg opacity-30" />
             <div className="relative grid gap-3">
               {ARCH_NODES.map((n, i) => (
-                <div key={n.id} className="flex flex-col items-center">
-                  <button
-                    onClick={() => setActive(n.id === active ? null : n.id)}
-                    className={`w-full max-w-md flex items-center gap-3 px-4 py-3 rounded-xl border transition-all
-                                ${active === n.id
-                                  ? "bg-white/10 border-cyber-cyan/50 neon-ring"
-                                  : "glass border-white/10 hover:border-cyber-purple/40"}`}>
-                    <span className="h-8 w-8 rounded-lg grid place-items-center bg-gradient-cyber">
-                      <Server className="h-4 w-4 text-white" />
-                    </span>
-                    <span className="text-sm font-medium">{n.label}</span>
-                    <span className="ml-auto text-[10px] font-mono text-muted-foreground">
-                      layer {i + 1}
-                    </span>
-                  </button>
+                <div key={n.id} className="flex flex-col items-center w-full">
+                  <HoverCard openDelay={120} closeDelay={80}>
+                    <HoverCardTrigger asChild>
+                      <button
+                        onClick={() => setActive(n.id === active ? null : n.id)}
+                        aria-expanded={active === n.id}
+                        aria-label={`${n.label} — ${n.desc}`}
+                        className={`w-full max-w-md flex items-center gap-3 px-4 py-3 rounded-xl border transition-all
+                                    ${active === n.id
+                                      ? "bg-white/10 border-cyber-cyan/50 neon-ring"
+                                      : "glass border-white/10 hover:border-cyber-purple/40"}`}>
+                        <span className="h-8 w-8 rounded-lg grid place-items-center bg-gradient-cyber">
+                          <Server className="h-4 w-4 text-white" />
+                        </span>
+                        <span className="text-sm font-medium">{n.label}</span>
+                        <span className="ml-auto text-[10px] font-mono text-muted-foreground">
+                          layer {i + 1}
+                        </span>
+                      </button>
+                    </HoverCardTrigger>
+                    <HoverCardContent
+                      side="right"
+                      align="start"
+                      sideOffset={12}
+                      className="w-80 glass border-white/10 text-foreground p-4 rounded-xl shadow-2xl">
+                      <div className="font-mono text-[10px] uppercase tracking-widest text-cyber-cyan">
+                        stage {i + 1} / {ARCH_NODES.length}
+                      </div>
+                      <div className="mt-1 font-display text-base font-semibold">{n.label}</div>
+                      <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{n.desc}</p>
+                      {n.tools && n.tools.length > 0 && (
+                        <div className="mt-3">
+                          <div className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground mb-1.5">tooling</div>
+                          <div className="flex flex-wrap gap-1">
+                            {n.tools.slice(0, 10).map(t => (
+                              <span key={t} className="px-1.5 py-0.5 rounded text-[10px] font-mono border border-white/10 bg-white/[0.03] text-cyber-cyan">{t}</span>
+                            ))}
+                            {n.tools.length > 10 && (
+                              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono text-muted-foreground">
+                                +{n.tools.length - 10} more
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                      <div className="mt-3 pt-3 border-t border-white/5 text-[10px] font-mono text-muted-foreground">
+                        Click to pin in the inspector →
+                      </div>
+                    </HoverCardContent>
+                  </HoverCard>
                   {i < ARCH_NODES.length - 1 && (
                     <svg width="2" height="30" className="my-1 overflow-visible">
                       <line x1="1" y1="0" x2="1" y2="30" stroke="url(#g)" strokeWidth="2" className="dash-flow" />
@@ -1388,6 +1425,7 @@ function Architecture() {
                   )}
                 </div>
               ))}
+
             </div>
           </div>
 
