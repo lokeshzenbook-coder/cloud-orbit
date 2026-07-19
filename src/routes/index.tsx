@@ -599,7 +599,7 @@ function About() {
         <SectionHeading
           eyebrow="// about"
           title={<>Engineering platforms that <span className="text-gradient">don't wake me up</span></>}
-          description="Eight years turning fragile infrastructure into calm, boring systems. I care about developer experience, security by default, and pipelines that ship on Friday afternoon."
+          description="Results-driven AWS DevOps Engineer with 5+ years architecting cloud-native platforms, Kubernetes infrastructure, GitOps workflows, and DevSecOps pipelines across production environments."
         />
 
         <div className="grid lg:grid-cols-3 gap-6">
@@ -609,15 +609,18 @@ function About() {
             <div className="font-mono text-xs text-cyber-cyan mb-4">~/philosophy</div>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p><span className="text-white">Automate the boring, protect the important.</span>{" "}
-                I treat infrastructure like a product — with users (developers), an SLA (uptime),
-                and a roadmap (platform capabilities).</p>
-              <p>Every incident is a design flaw waiting to be codified into a guardrail.
-                Every runbook is a script I haven't written yet.</p>
-              <p>I default to GitOps, policy-as-code, and security scanned at every step of the
-                supply chain. Deploys should be dull.</p>
+                I treat infrastructure as a product — with developers as users, uptime as the SLA,
+                and platform capabilities as the roadmap.</p>
+              <p>Deep expertise in Terraform, Ansible, Docker, and Amazon EKS, with CI/CD across
+                GitHub Actions, Jenkins, GitLab CI, and Argo CD. I embed SonarQube, Trivy, Snyk, and
+                Checkov into every stage of delivery.</p>
+              <p>Track record: <span className="text-white">−60% deploy time</span>,{" "}
+                <span className="text-white">−30% cloud cost</span>,{" "}
+                <span className="text-white">−50% MTTR</span>, and{" "}
+                <span className="text-white">99.9% uptime</span> across Dev, QA, UAT, and Prod.</p>
             </div>
             <div className="mt-6 flex flex-wrap gap-2 font-mono text-xs">
-              {["GitOps", "IaC", "Zero Trust", "SLSA-3", "Platform Engineering", "Well-Architected"].map(t => (
+              {["GitOps", "IaC", "IRSA / OIDC", "Vault", "Karpenter", "Istio"].map(t => (
                 <span key={t} className="px-2.5 py-1 rounded-md glass border border-white/10 text-cyber-cyan">{t}</span>
               ))}
             </div>
@@ -629,13 +632,13 @@ function About() {
             <div className="font-mono text-xs text-cyber-cyan mb-4">~/currently</div>
             <ul className="space-y-4 text-sm">
               <li className="flex gap-3"><Server className="h-4 w-4 mt-0.5 text-cyber-blue" />
-                <span>Leading platform team at a fintech, 40+ EKS clusters.</span></li>
+                <span>AWS DevOps Engineer at ASICS Technologies — 15+ microservices on EKS.</span></li>
               <li className="flex gap-3"><Shield className="h-4 w-4 mt-0.5 text-cyber-purple" />
-                <span>Rolling out SLSA-3 supply chain across all services.</span></li>
+                <span>Hardening GitOps delivery with Trivy, Snyk, Checkov, and Vault.</span></li>
               <li className="flex gap-3"><Zap className="h-4 w-4 mt-0.5 text-cyber-cyan" />
-                <span>Writing about Karpenter, Argo Rollouts, and OPA.</span></li>
+                <span>Scaling EKS workloads with Karpenter + HPA + Cluster Autoscaler.</span></li>
               <li className="flex gap-3"><Award className="h-4 w-4 mt-0.5 text-cyber-blue" />
-                <span>Studying for CKS re-certification.</span></li>
+                <span>Preparing for AWS SAA, CKA, and Terraform Associate.</span></li>
             </ul>
           </motion.div>
         </div>
