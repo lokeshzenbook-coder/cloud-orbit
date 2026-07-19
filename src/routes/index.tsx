@@ -859,7 +859,7 @@ function About() {
 
         <div className="grid lg:grid-cols-3 gap-6">
           <motion.div
-            initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+            initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.05 }} transition={{ duration: 0.5, ease: "easeOut" }}
             className="lg:col-span-2 glass rounded-3xl p-8 hover-glow">
             <div className="font-mono text-xs text-cyber-cyan mb-4">~/philosophy</div>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
