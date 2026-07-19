@@ -643,18 +643,23 @@ function Nav({ onCmd }: { onCmd: () => void }) {
 /* ------------------------------------------------------------- Hero --- */
 
 function HL({ children, gradient, accent }: { children: React.ReactNode; gradient?: boolean; accent?: boolean }) {
+  const reduce = useReducedMotion();
   return (
     <motion.span
-      initial={{ opacity: 0.4, filter: "blur(4px)", y: 4 }}
-      whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+      initial={reduce ? false : { opacity: 0.4, filter: "blur(4px)", y: 4 }}
+      whileInView={reduce ? undefined : { opacity: 1, filter: "blur(0px)", y: 0 }}
       viewport={{ once: true, margin: "-10% 0px" }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      whileHover={{
-        textShadow: gradient
-          ? "0 0 12px rgba(0,229,255,0.6)"
-          : "0 0 10px rgba(255,255,255,0.5)",
-        y: -1,
-      }}
+      transition={reduce ? { duration: 0 } : { duration: 0.6, ease: "easeOut" }}
+      whileHover={
+        reduce
+          ? undefined
+          : {
+              textShadow: gradient
+                ? "0 0 12px rgba(0,229,255,0.6)"
+                : "0 0 10px rgba(255,255,255,0.5)",
+              y: -1,
+            }
+      }
       className={
         "relative inline-block cursor-default transition-colors " +
         (gradient
