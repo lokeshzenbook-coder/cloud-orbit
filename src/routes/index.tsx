@@ -1257,10 +1257,14 @@ function Contact() {
             </div>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
+            <MagneticButton href="/GR_Lokesh_Resume.pdf" variant="primary" download="GR_Lokesh_Resume.pdf" target="_blank" rel="noopener">
+              <Download className="h-4 w-4" /> Download résumé
+            </MagneticButton>
             <MagneticButton href="https://github.com/grlokesh96" variant="outline"><Github className="h-4 w-4" /> GitHub</MagneticButton>
             <MagneticButton href="https://www.linkedin.com/in/grlokesh96" variant="outline"><Linkedin className="h-4 w-4" /> LinkedIn</MagneticButton>
             <MagneticButton href="mailto:grlokesh96@gmail.com" variant="outline"><Mail className="h-4 w-4" /> Email</MagneticButton>
           </div>
+
         </div>
 
         <form onSubmit={(e) => { e.preventDefault(); setSent(true); }}
