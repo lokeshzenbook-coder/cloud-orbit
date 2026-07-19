@@ -1504,7 +1504,7 @@ function Portfolio() {
       <CommandPalette open={cmd} onClose={() => setCmd(false)} />
       <SmoothScroll />
       <CustomCursor />
-      <ThemeToggle />
+      
       <AIAssistant />
     </div>
   );
