@@ -565,13 +565,13 @@ function TypingText() {
 }
 
 function Particles() {
-  const dots = useMemo(
-    () => Array.from({ length: 40 }, () => ({
+  const [dots, setDots] = useState<Array<{x:number;y:number;s:number;d:number;delay:number}>>([]);
+  useEffect(() => {
+    setDots(Array.from({ length: 40 }, () => ({
       x: Math.random() * 100, y: Math.random() * 100,
       s: Math.random() * 2 + 1, d: Math.random() * 8 + 6, delay: Math.random() * 5,
-    })),
-    []
-  );
+    })));
+  }, []);
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
       {dots.map((p, i) => (
