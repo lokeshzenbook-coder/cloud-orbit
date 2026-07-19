@@ -757,7 +757,7 @@ function Certs() {
     <section id="certifications" className="relative py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading eyebrow="// credentials" title={<>Certifications</>} />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2">
           {CERTIFICATIONS.map((c, i) => (
             <motion.div
               key={c.id}
