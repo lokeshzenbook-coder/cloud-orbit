@@ -1272,7 +1272,7 @@ function Contact() {
             </div>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
-            <MagneticButton href="/GR_Lokesh_Resume.pdf" variant="primary" download="GR_Lokesh_Resume.pdf" target="_blank" rel="noopener">
+            <MagneticButton href="/GR_Lokesh_Resume.pdf" variant="primary" download="GR_Lokesh_Resume.pdf" target="_blank" rel="noopener" onClick={() => trackResumeDownload("contact")}>
               <Download className="h-4 w-4" /> Download résumé
             </MagneticButton>
             <MagneticButton href="https://github.com/grlokesh96" variant="outline"><Github className="h-4 w-4" /> GitHub</MagneticButton>
