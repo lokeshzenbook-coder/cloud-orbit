@@ -1496,10 +1496,15 @@ function Portfolio() {
         <Security />
         <GitHubStrip />
         <Testimonials />
+        <Blog />
         <Contact />
       </main>
       <Footer />
       <CommandPalette open={cmd} onClose={() => setCmd(false)} />
+      <SmoothScroll />
+      <CustomCursor />
+      <ThemeToggle />
+      <AIAssistant />
     </div>
   );
 }
