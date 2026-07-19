@@ -1904,7 +1904,6 @@ function Portfolio() {
         <Experience />
         <Projects />
         <Achievements />
-        
         <Pipeline />
         <Blog />
         <Contact />
