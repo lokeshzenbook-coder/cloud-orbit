@@ -1003,7 +1003,7 @@ function Certs() {
             <motion.div
               key={c.id}
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }} transition={{ delay: i * 0.05 }}
+              viewport={{ once: true, amount: 0.05 }} transition={{ delay: Math.min(i * 0.05, 0.15), duration: 0.5, ease: "easeOut" }}
               className="group relative rounded-2xl p-6 glass hover-glow overflow-hidden">
               <div className="absolute -top-16 -right-16 h-40 w-40 rounded-full blur-3xl opacity-30 group-hover:opacity-60 transition-opacity"
                    style={{ background: "radial-gradient(circle, #8B5CF6, transparent 60%)" }} />
