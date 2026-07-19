@@ -2,6 +2,38 @@
 @source "../src";
 @import "tw-animate-css";
 
+/* ---------------------------------------------------------------------------
+ * Fallback font-face declarations with matched metrics.
+ * The web fonts (Inter, Space Grotesk) load asynchronously via <link> in
+ * __root.tsx with `display=swap`. Until they arrive, the browser paints with
+ * these local system-font fallbacks whose ascent/descent/size-adjust are tuned
+ * to match the target metrics, so the swap causes ~0 layout shift (CLS).
+ * ------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  size-adjust: 107.4%;
+  ascent-override: 90%;
+  descent-override: 22.4%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Space Grotesk Fallback";
+  src: local("Arial");
+  size-adjust: 100.6%;
+  ascent-override: 96%;
+  descent-override: 27%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "JetBrains Mono Fallback";
+  src: local("Menlo"), local("Consolas"), local("Courier New");
+  size-adjust: 96%;
+  ascent-override: 92%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
