@@ -76,7 +76,7 @@ const SKILL_CATEGORIES = [
     name: "Cloud", icon: Cloud, color: "#3B82F6",
     skills: [
       { name: "AWS", level: 95, years: 6 },
-      { name: "Azure", level: 78, years: 4 },
+      { name: "Azure", level: 78, years: 3 },
       { name: "GCP", level: 72, years: 3 },
       { name: "Cloudflare", level: 82, years: 4 },
     ],
