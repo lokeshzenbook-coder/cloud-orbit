@@ -854,7 +854,7 @@ function About() {
         <SectionHeading
           eyebrow="// about"
           title={<>Engineering platforms that <HL gradient>don't wake me up</HL></>}
-          description="Results-driven AWS DevOps Engineer with 5+ years architecting cloud-native platforms, Kubernetes infrastructure, GitOps workflows, and DevSecOps pipelines across production environments."
+          description="Results-driven AWS DevOps Engineer with 6+ years architecting cloud-native platforms, Kubernetes infrastructure, GitOps workflows, and DevSecOps pipelines across production environments."
         />
 
         <div className="grid lg:grid-cols-3 gap-6">
