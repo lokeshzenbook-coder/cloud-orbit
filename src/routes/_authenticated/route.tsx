@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useNavigate, useHydrated } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -9,6 +9,7 @@ export const Route = createFileRoute("/_authenticated")({
 
 function AuthenticatedLayout() {
   const navigate = useNavigate();
+  const hydrated = useHydrated();
   const [status, setStatus] = useState<"checking" | "authed" | "anon">("checking");
 
   useEffect(() => {
@@ -26,6 +27,10 @@ function AuthenticatedLayout() {
       cancelled = true;
     };
   }, [navigate]);
+
+  // Match the server-rendered Suspense(fallback=null) on the very first client
+  // render so hydration succeeds; reveal UI after hydration.
+  if (!hydrated) return null;
 
   if (status !== "authed") {
     return (
