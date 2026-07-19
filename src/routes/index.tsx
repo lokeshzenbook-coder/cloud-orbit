@@ -642,6 +642,33 @@ function Nav({ onCmd }: { onCmd: () => void }) {
 
 /* ------------------------------------------------------------- Hero --- */
 
+function HL({ children, gradient, accent }: { children: React.ReactNode; gradient?: boolean; accent?: boolean }) {
+  return (
+    <motion.span
+      initial={{ opacity: 0.4, filter: "blur(4px)", y: 4 }}
+      whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+      viewport={{ once: true, margin: "-10% 0px" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      whileHover={{
+        textShadow: gradient
+          ? "0 0 12px rgba(0,229,255,0.6)"
+          : "0 0 10px rgba(255,255,255,0.5)",
+        y: -1,
+      }}
+      className={
+        "relative inline-block cursor-default transition-colors " +
+        (gradient
+          ? "text-gradient font-semibold"
+          : accent
+          ? "text-white font-medium"
+          : "text-white")
+      }
+    >
+      {children}
+    </motion.span>
+  );
+}
+
 function Hero() {
   const orbitItems = [
     { label: "AWS", color: "#FF9900", r: 130, dur: 22 },
