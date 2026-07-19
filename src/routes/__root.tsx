@@ -13,6 +13,9 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
+  useEffect(() => {
+    document.title = "404 — Page not found · G R Lokesh";
+  }, []);
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
@@ -20,7 +23,7 @@ function NotFoundComponent() {
         <h1 className="text-7xl font-bold text-gradient">404</h1>
         <h2 className="mt-4 text-xl font-semibold">Pod not found</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          The resource you requested is not scheduled on any node.
+          This route isn't scheduled on any node in G R Lokesh's cluster.
         </p>
         <div className="mt-6">
           <Link
@@ -34,6 +37,7 @@ function NotFoundComponent() {
     </div>
   );
 }
+
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
