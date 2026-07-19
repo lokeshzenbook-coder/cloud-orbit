@@ -655,10 +655,10 @@ function HL({ children, gradient, accent }: { children: React.ReactNode; gradien
   const reduce = useReducedMotion();
   return (
     <motion.span
-      initial={reduce ? false : { opacity: 0.4, filter: "blur(4px)", y: 4 }}
-      whileInView={reduce ? undefined : { opacity: 1, filter: "blur(0px)", y: 0 }}
+      initial={reduce ? false : { y: 6 }}
+      whileInView={reduce ? undefined : { y: 0 }}
       viewport={{ once: true, margin: "-10% 0px" }}
-      transition={reduce ? { duration: 0 } : { duration: 0.6, ease: "easeOut" }}
+      transition={reduce ? { duration: 0 } : { duration: 0.5, ease: "easeOut" }}
       whileHover={
         reduce
           ? undefined
@@ -669,6 +669,8 @@ function HL({ children, gradient, accent }: { children: React.ReactNode; gradien
               y: -1,
             }
       }
+
+
       className={
         "relative inline-block cursor-default transition-colors " +
         (gradient
