@@ -655,27 +655,12 @@ function Nav({ onCmd }: { onCmd: () => void }) {
 /* ------------------------------------------------------------- Hero --- */
 
 function HL({ children, gradient, accent }: { children: React.ReactNode; gradient?: boolean; accent?: boolean }) {
-  const reduce = useReducedMotion();
+  // Use plain inline span so long phrases wrap naturally within paragraphs
+  // (inline-block would keep whole phrases together and cause awkward line breaks).
   return (
-    <motion.span
-      initial={reduce ? false : { y: 6 }}
-      whileInView={reduce ? undefined : { y: 0 }}
-      viewport={{ once: true, margin: "-10% 0px" }}
-      transition={reduce ? { duration: 0 } : { duration: 0.5, ease: "easeOut" }}
-      whileHover={
-        reduce
-          ? undefined
-          : {
-              textShadow: gradient
-                ? "0 0 12px rgba(0,229,255,0.6)"
-                : "0 0 10px rgba(255,255,255,0.5)",
-              y: -1,
-            }
-      }
-
-
+    <span
       className={
-        "relative inline-block cursor-default transition-colors " +
+        "cursor-default transition-colors hover:[text-shadow:0_0_10px_rgba(0,229,255,0.45)] " +
         (gradient
           ? "text-gradient font-semibold"
           : accent
@@ -684,7 +669,7 @@ function HL({ children, gradient, accent }: { children: React.ReactNode; gradien
       }
     >
       {children}
-    </motion.span>
+    </span>
   );
 }
 
