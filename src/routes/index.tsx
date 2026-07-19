@@ -1460,6 +1460,77 @@ const KIND_COLOR: Record<SearchItem["kind"], string> = {
   Article: "text-amber-400",
 };
 
+/** Wrap up to N matches of `query` inside the target section with <mark class="portfolio-hl">.
+ *  Auto-cleans previous highlights. Scrolls the first hit into view. */
+function highlightInPage(targetHash: string, query: string) {
+  // Clean any prior highlights
+  document.querySelectorAll("mark.portfolio-hl").forEach((m) => {
+    const parent = m.parentNode;
+    if (!parent) return;
+    while (m.firstChild) parent.insertBefore(m.firstChild, m);
+    parent.removeChild(m);
+    parent.normalize();
+  });
+
+  const id = targetHash.replace(/^#/, "");
+  const root = (id && document.getElementById(id)) || document.body;
+  const q = query.trim();
+  if (!q) return;
+
+  const needle = q.toLowerCase();
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      const p = node.parentElement;
+      if (!p) return NodeFilter.FILTER_REJECT;
+      const tag = p.tagName;
+      if (tag === "SCRIPT" || tag === "STYLE" || tag === "MARK" || tag === "INPUT" || tag === "TEXTAREA") return NodeFilter.FILTER_REJECT;
+      return node.nodeValue.toLowerCase().includes(needle) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    },
+  });
+
+  const hits: Text[] = [];
+  let n: Node | null;
+  while ((n = walker.nextNode()) && hits.length < 40) hits.push(n as Text);
+
+  const created: HTMLElement[] = [];
+  for (const textNode of hits) {
+    const text = textNode.nodeValue!;
+    const lower = text.toLowerCase();
+    const frag = document.createDocumentFragment();
+    let i = 0;
+    while (i < text.length) {
+      const idx = lower.indexOf(needle, i);
+      if (idx === -1) { frag.appendChild(document.createTextNode(text.slice(i))); break; }
+      if (idx > i) frag.appendChild(document.createTextNode(text.slice(i, idx)));
+      const mark = document.createElement("mark");
+      mark.className = "portfolio-hl";
+      mark.textContent = text.slice(idx, idx + needle.length);
+      frag.appendChild(mark);
+      created.push(mark);
+      i = idx + needle.length;
+    }
+    textNode.parentNode?.replaceChild(frag, textNode);
+  }
+
+  if (created.length) {
+    created[0].classList.add("is-primary");
+    setTimeout(() => created[0].scrollIntoView({ behavior: "smooth", block: "center" }), 220);
+  }
+
+  // Auto-clean after a while
+  window.setTimeout(() => {
+    created.forEach((m) => {
+      const parent = m.parentNode;
+      if (!parent) return;
+      while (m.firstChild) parent.insertBefore(m.firstChild, m);
+      parent.removeChild(m);
+      parent.normalize();
+    });
+  }, 6000);
+}
+
+
 const FILTERS: ("All" | SearchItem["kind"])[] = ["All", "Section", "Project", "Experience", "Article"];
 
 function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -1511,8 +1582,14 @@ function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void 
       }
       else if (e.key === "Enter") {
         const it = results[active];
-        if (it) { window.location.hash = it.href; onClose(); }
+        if (it) {
+          const query = q.trim();
+          window.location.hash = it.href;
+          onClose();
+          window.setTimeout(() => highlightInPage(it.href, query || it.label), 260);
+        }
       }
+
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -1567,7 +1644,12 @@ function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void 
               {results.map((it, i) => (
                 <a key={`${it.kind}-${it.label}-${i}`} href={it.href} data-idx={i}
                    onMouseEnter={() => setActive(i)}
-                   onClick={onClose}
+                   onClick={() => {
+                     const query = q.trim();
+                     onClose();
+                     window.setTimeout(() => highlightInPage(it.href, query || it.label), 260);
+                   }}
+
                    className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm ${
                      i === active ? "bg-white/10" : "hover:bg-white/5"
                    }`}>

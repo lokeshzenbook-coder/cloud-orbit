@@ -201,3 +201,21 @@ body {
 .animate-gradient { background-size: 200% 200%; animation: gradient-shift 8s ease infinite; }
 .blink { animation: blink 1s step-end infinite; }
 .dash-flow { stroke-dasharray: 8 6; animation: dash-flow 6s linear infinite; }
+
+/* Command palette match highlighting */
+mark.portfolio-hl {
+  background: linear-gradient(180deg, rgba(34,211,238,0.35), rgba(168,85,247,0.35));
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 2px;
+  box-shadow: 0 0 0 1px rgba(34,211,238,0.5), 0 0 12px rgba(34,211,238,0.35);
+  animation: hl-pulse 1.4s ease-in-out 3;
+}
+mark.portfolio-hl.is-primary {
+  outline: 2px solid rgba(168,85,247,0.9);
+  outline-offset: 2px;
+}
+@keyframes hl-pulse {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(34,211,238,0.5), 0 0 12px rgba(34,211,238,0.35); }
+  50%      { box-shadow: 0 0 0 1px rgba(168,85,247,0.7), 0 0 22px rgba(168,85,247,0.55); }
+}
