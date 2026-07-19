@@ -227,7 +227,6 @@ const NAV = [
   { id: "impact", label: "Impact" },
   { id: "architecture", label: "Architecture" },
   { id: "pipeline", label: "Pipeline" },
-  
   { id: "blog", label: "Blog" },
   { id: "contact", label: "Contact" },
 ];
