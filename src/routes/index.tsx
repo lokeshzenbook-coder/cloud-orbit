@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion, useScroll, useSpring, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { SmoothScroll, CustomCursor, Blog, AIAssistant, ARTICLES } from "@/components/portfolio-extras";
 import { supabase } from "@/integrations/supabase/client";
@@ -643,18 +643,23 @@ function Nav({ onCmd }: { onCmd: () => void }) {
 /* ------------------------------------------------------------- Hero --- */
 
 function HL({ children, gradient, accent }: { children: React.ReactNode; gradient?: boolean; accent?: boolean }) {
+  const reduce = useReducedMotion();
   return (
     <motion.span
-      initial={{ opacity: 0.4, filter: "blur(4px)", y: 4 }}
-      whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+      initial={reduce ? false : { opacity: 0.4, filter: "blur(4px)", y: 4 }}
+      whileInView={reduce ? undefined : { opacity: 1, filter: "blur(0px)", y: 0 }}
       viewport={{ once: true, margin: "-10% 0px" }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      whileHover={{
-        textShadow: gradient
-          ? "0 0 12px rgba(0,229,255,0.6)"
-          : "0 0 10px rgba(255,255,255,0.5)",
-        y: -1,
-      }}
+      transition={reduce ? { duration: 0 } : { duration: 0.6, ease: "easeOut" }}
+      whileHover={
+        reduce
+          ? undefined
+          : {
+              textShadow: gradient
+                ? "0 0 12px rgba(0,229,255,0.6)"
+                : "0 0 10px rgba(255,255,255,0.5)",
+              y: -1,
+            }
+      }
       className={
         "relative inline-block cursor-default transition-colors " +
         (gradient
@@ -670,6 +675,7 @@ function HL({ children, gradient, accent }: { children: React.ReactNode; gradien
 }
 
 function Hero() {
+  const reduce = useReducedMotion();
   const orbitItems = [
     { label: "AWS", color: "#FF9900", r: 130, dur: 22 },
     { label: "K8s", color: "#326CE5", r: 130, dur: 22, offset: 90 },
@@ -696,24 +702,32 @@ function Hero() {
         <div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              boxShadow: [
-                "0 0 0 0 rgba(0,229,255,0.0), 0 0 12px rgba(0,229,255,0.25)",
-                "0 0 0 6px rgba(0,229,255,0.0), 0 0 24px rgba(0,229,255,0.55)",
-                "0 0 0 0 rgba(0,229,255,0.0), 0 0 12px rgba(0,229,255,0.25)",
-              ],
-            }}
-            transition={{
-              opacity: { duration: 0.5 },
-              y: { duration: 0.5 },
-              boxShadow: { duration: 2.4, repeat: Infinity, ease: "easeInOut" },
-            }}
-            whileHover={{ scale: 1.04 }}
+            animate={
+              reduce
+                ? { opacity: 1, y: 0 }
+                : {
+                    opacity: 1,
+                    y: 0,
+                    boxShadow: [
+                      "0 0 0 0 rgba(0,229,255,0.0), 0 0 12px rgba(0,229,255,0.25)",
+                      "0 0 0 6px rgba(0,229,255,0.0), 0 0 24px rgba(0,229,255,0.55)",
+                      "0 0 0 0 rgba(0,229,255,0.0), 0 0 12px rgba(0,229,255,0.25)",
+                    ],
+                  }
+            }
+            transition={
+              reduce
+                ? { duration: 0.3 }
+                : {
+                    opacity: { duration: 0.5 },
+                    y: { duration: 0.5 },
+                    boxShadow: { duration: 2.4, repeat: Infinity, ease: "easeInOut" },
+                  }
+            }
+            whileHover={reduce ? undefined : { scale: 1.04 }}
             className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs font-mono min-h-[26px] border border-cyber-cyan/40 bg-cyber-cyan/5">
             <span className="relative flex h-2 w-2">
-              <span className="absolute inset-0 rounded-full bg-cyber-cyan animate-ping opacity-75" />
+              {!reduce && <span className="absolute inset-0 rounded-full bg-cyber-cyan animate-ping opacity-75" />}
               <span className="relative inline-flex rounded-full h-2 w-2 bg-cyber-cyan" />
             </span>
             <span className="font-semibold tracking-wide uppercase text-gradient">Open to New Opportunities</span>
