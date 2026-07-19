@@ -712,7 +712,7 @@ function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
             className="mt-4 text-lg md:text-xl text-muted-foreground max-w-xl">
-            <HL accent>AWS DevOps, DevSecOps, and Platform</HL> Engineer with <HL gradient>5+ years</HL> of experience designing, automating, and operating <HL>production-grade cloud infrastructure</HL>. Specialized in <HL>Kubernetes (Amazon EKS)</HL>, <HL>Terraform</HL>, <HL>GitOps (Argo CD)</HL>, <HL>CI/CD automation</HL>, <HL>Infrastructure as Code</HL>, <HL>container security</HL>, <HL>observability</HL>, and <HL>cloud-native platform engineering</HL> to deliver <HL gradient>secure, resilient, and highly available</HL> applications at scale.
+            <HL accent>AWS DevOps, DevSecOps, and Platform</HL> Engineer with <HL gradient>6+ years</HL> of experience designing, automating, and operating <HL>production-grade cloud infrastructure</HL>. Specialized in <HL>Kubernetes (Amazon EKS)</HL>, <HL>Terraform</HL>, <HL>GitOps (Argo CD)</HL>, <HL>CI/CD automation</HL>, <HL>Infrastructure as Code</HL>, <HL>container security</HL>, <HL>observability</HL>, and <HL>cloud-native platform engineering</HL> to deliver <HL gradient>secure, resilient, and highly available</HL> applications at scale.
           </motion.p>
 
           <motion.div
