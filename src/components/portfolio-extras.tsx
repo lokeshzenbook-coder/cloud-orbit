@@ -20,40 +20,102 @@ export function SmoothScroll() {
   return null;
 }
 
-/* ---------------- Custom cursor ---------------- */
+/* ---------------- Custom cursor (perf-optimized) ---------------- */
 export function CustomCursor() {
   const dot = useRef<HTMLDivElement>(null);
   const ring = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    if (typeof window === "undefined") return;
     if (window.matchMedia("(pointer: coarse)").matches) return;
-    let x = 0, y = 0, rx = 0, ry = 0;
-    const move = (e: MouseEvent) => { x = e.clientX; y = e.clientY;
-      if (dot.current) dot.current.style.transform = `translate(${x - 3}px, ${y - 3}px)`;
-    };
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const dotEl = dot.current;
+    const ringEl = ring.current;
+    if (!dotEl || !ringEl) return;
+
+    let x = 0, y = 0, dx = 0, dy = 0, rx = 0, ry = 0;
+    let scale = 1, targetScale = 1;
+    let visible = false;
+    let running = false;
     let raf = 0;
+
+    const show = () => {
+      if (visible) return;
+      visible = true;
+      dotEl.style.opacity = "1";
+      ringEl.style.opacity = "1";
+    };
+    const hide = () => {
+      visible = false;
+      dotEl.style.opacity = "0";
+      ringEl.style.opacity = "0";
+    };
+
     const tick = () => {
-      rx += (x - rx) * 0.18; ry += (y - ry) * 0.18;
-      if (ring.current) ring.current.style.transform = `translate(${rx - 16}px, ${ry - 16}px)`;
+      // Dot: quick catch-up (feels 1:1 but still smoothed)
+      dx += (x - dx) * 0.55;
+      dy += (y - dy) * 0.55;
+      // Ring: trailing
+      rx += (x - rx) * 0.18;
+      ry += (y - ry) * 0.18;
+      scale += (targetScale - scale) * 0.2;
+
+      dotEl.style.transform = `translate3d(${dx - 3}px, ${dy - 3}px, 0)`;
+      ringEl.style.transform = `translate3d(${rx - 16}px, ${ry - 16}px, 0) scale(${scale})`;
+
+      const settled =
+        Math.abs(x - dx) < 0.1 && Math.abs(y - dy) < 0.1 &&
+        Math.abs(x - rx) < 0.1 && Math.abs(y - ry) < 0.1 &&
+        Math.abs(targetScale - scale) < 0.01;
+
+      if (settled) { running = false; return; }
       raf = requestAnimationFrame(tick);
     };
-    const over = (e: MouseEvent) => {
-      const t = e.target as HTMLElement;
-      const int = t.closest("a,button,[role=button],input,textarea");
-      if (ring.current) ring.current.style.transform += int ? " scale(1.6)" : "";
+    const ensureRunning = () => {
+      if (running) return;
+      running = true;
+      raf = requestAnimationFrame(tick);
     };
-    window.addEventListener("mousemove", move);
-    window.addEventListener("mouseover", over);
-    raf = requestAnimationFrame(tick);
+
+    const move = (e: PointerEvent) => {
+      x = e.clientX; y = e.clientY;
+      show();
+      ensureRunning();
+    };
+    const over = (e: PointerEvent) => {
+      const t = e.target as HTMLElement | null;
+      const int = t?.closest("a,button,[role=button],input,textarea,select,label,summary");
+      targetScale = int ? 1.6 : 1;
+      ensureRunning();
+    };
+    const leave = () => hide();
+    const enter = () => show();
+
+    window.addEventListener("pointermove", move, { passive: true });
+    window.addEventListener("pointerover", over, { passive: true });
+    document.addEventListener("pointerleave", leave);
+    document.addEventListener("pointerenter", enter);
+
     return () => {
-      window.removeEventListener("mousemove", move);
-      window.removeEventListener("mouseover", over);
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerover", over);
+      document.removeEventListener("pointerleave", leave);
+      document.removeEventListener("pointerenter", enter);
       cancelAnimationFrame(raf);
     };
   }, []);
   return (
     <>
-      <div ref={ring} className="pointer-events-none fixed top-0 left-0 z-[300] h-8 w-8 rounded-full border border-cyber-cyan/60 mix-blend-difference hidden md:block transition-transform duration-100" />
-      <div ref={dot} className="pointer-events-none fixed top-0 left-0 z-[300] h-1.5 w-1.5 rounded-full bg-cyber-cyan hidden md:block" />
+      <div
+        ref={ring}
+        style={{ willChange: "transform, opacity", opacity: 0, contain: "layout style paint" }}
+        className="pointer-events-none fixed top-0 left-0 z-[300] h-8 w-8 rounded-full border border-cyber-cyan/60 mix-blend-difference hidden md:block"
+      />
+      <div
+        ref={dot}
+        style={{ willChange: "transform, opacity", opacity: 0, contain: "layout style paint" }}
+        className="pointer-events-none fixed top-0 left-0 z-[300] h-1.5 w-1.5 rounded-full bg-cyber-cyan hidden md:block"
+      />
     </>
   );
 }
