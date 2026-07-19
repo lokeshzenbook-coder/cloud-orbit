@@ -498,8 +498,8 @@ function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
             className="mt-4 text-lg md:text-xl text-muted-foreground max-w-xl">
-            Senior <span className="text-white">DevOps & DevSecOps</span> Engineer shipping
-            secure, self-healing cloud platforms at scale.
+            AWS <span className="text-white">DevOps · Platform · DevSecOps</span> Engineer with 5+ years
+            architecting cloud-native EKS platforms, GitOps delivery, and secure CI/CD.
           </motion.p>
 
           <motion.div
@@ -517,19 +517,19 @@ function Hero() {
             <MagneticButton href="#projects" variant="outline">
               <Rocket className="h-4 w-4" /> View projects
             </MagneticButton>
-            <MagneticButton href="#" variant="outline">
-              <Download className="h-4 w-4" /> Resume
+            <MagneticButton href="mailto:grlokesh96@gmail.com" variant="outline">
+              <Mail className="h-4 w-4" /> Email
             </MagneticButton>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}
             className="mt-10 flex items-center gap-5 text-muted-foreground">
-            <a href="#" className="hover:text-white transition-colors"><Github className="h-5 w-5" /></a>
-            <a href="#" className="hover:text-white transition-colors"><Linkedin className="h-5 w-5" /></a>
-            <a href="#" className="hover:text-white transition-colors"><Mail className="h-5 w-5" /></a>
+            <a href="https://github.com/grlokesh96" target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Github className="h-5 w-5" /></a>
+            <a href="https://www.linkedin.com/in/grlokesh96" target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Linkedin className="h-5 w-5" /></a>
+            <a href="mailto:grlokesh96@gmail.com" className="hover:text-white transition-colors"><Mail className="h-5 w-5" /></a>
             <div className="h-4 w-px bg-white/10" />
-            <span className="text-xs font-mono">Available Q2 2026</span>
+            <span className="text-xs font-mono">Hyderabad · Open to roles</span>
           </motion.div>
         </div>
 
