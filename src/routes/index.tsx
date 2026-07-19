@@ -11,7 +11,7 @@ import {
   Database, Lock, Boxes, Workflow, GaugeCircle, Rocket, Award, Code2,
   ChevronRight, Command, Sparkles, Globe, Layers, Play, CircleCheck,
   FileCode, ShieldCheck, Bug, KeyRound, PackageSearch, ScrollText,
-  ArrowUpRight, Menu, X, Phone, MapPin, Star, GitPullRequest,
+  ArrowUpRight, Menu, X, Phone, MapPin,
 } from "lucide-react";
 
 async function trackResumeDownload(source: "hero" | "contact") {
@@ -224,7 +224,7 @@ const NAV = [
   { id: "impact", label: "Impact" },
   { id: "architecture", label: "Architecture" },
   { id: "pipeline", label: "Pipeline" },
-  { id: "security", label: "Security" },
+  
   { id: "blog", label: "Blog" },
   { id: "contact", label: "Contact" },
 ];
@@ -1530,169 +1530,7 @@ function Pipeline() {
   );
 }
 
-/* ---------------------------------------------- Security Center --- */
 
-function Security() {
-  const metrics = [
-    { label: "Security Score", value: "A+", sub: "94/100", color: "#10B981" },
-    { label: "Critical CVEs", value: "0", sub: "last 30d", color: "#06B6D4" },
-    { label: "Signed Images", value: "100%", sub: "cosign", color: "#3B82F6" },
-    { label: "Policy Violations", value: "3", sub: "auto-remediated", color: "#8B5CF6" },
-  ];
-  const scans = [
-    { name: "Container images", value: 98 },
-    { name: "IaC (Checkov)", value: 100 },
-    { name: "Secrets (Gitleaks)", value: 100 },
-    { name: "SAST (Semgrep)", value: 92 },
-    { name: "Runtime (Falco)", value: 96 },
-  ];
-
-  return (
-    <section id="security" className="relative py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <SectionHeading
-          eyebrow="// devsecops · posture"
-          title={<>Security <HL gradient>command center</HL></>}
-        />
-
-        <div className="grid md:grid-cols-4 gap-4 mb-6">
-          {metrics.map((m, i) => (
-            <motion.div key={m.label}
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }} transition={{ delay: i * 0.05 }}
-              className="glass rounded-2xl p-6 hover-glow relative overflow-hidden">
-              <div className="absolute top-3 right-3 h-2 w-2 rounded-full animate-pulse" style={{ background: m.color }} />
-              <div className="text-xs font-mono text-muted-foreground uppercase tracking-wider">{m.label}</div>
-              <div className="mt-3 font-display text-4xl font-bold" style={{ color: m.color }}>{m.value}</div>
-              <div className="mt-1 text-xs text-muted-foreground font-mono">{m.sub}</div>
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-4">
-          <div className="glass rounded-2xl p-6">
-            <div className="flex items-center gap-2 mb-4">
-              <ShieldCheck className="h-5 w-5 text-cyber-cyan" />
-              <div className="font-display font-semibold">Scan coverage</div>
-            </div>
-            <div className="space-y-4">
-              {scans.map(s => (
-                <div key={s.name}>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span>{s.name}</span>
-                    <span className="font-mono text-cyber-cyan">{s.value}%</span>
-                  </div>
-                  <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
-                    <motion.div initial={{ width: 0 }} whileInView={{ width: `${s.value}%` }}
-                                viewport={{ once: true }} transition={{ duration: 1 }}
-                                className="h-full rounded-full bg-gradient-cyber" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="glass rounded-2xl p-6">
-            <div className="flex items-center gap-2 mb-4">
-              <Activity className="h-5 w-5 text-cyber-purple" />
-              <div className="font-display font-semibold">Live cluster feed</div>
-            </div>
-            <div className="space-y-2 font-mono text-xs">
-              {[
-                { t: "12:04:17", tag: "OK", msg: "pod api-7c9 · healthy", c: "text-emerald-400" },
-                { t: "12:04:12", tag: "OK", msg: "hpa scaled web-frontend 6→9", c: "text-cyber-cyan" },
-                { t: "12:03:58", tag: "SEC", msg: "policy allow · admission ns=prod", c: "text-cyber-purple" },
-                { t: "12:03:41", tag: "OK", msg: "argocd sync payments · Synced", c: "text-emerald-400" },
-                { t: "12:03:22", tag: "WARN", msg: "node cpu 82% · pending scale", c: "text-yellow-400" },
-                { t: "12:03:04", tag: "OK", msg: "cert-manager renewed *.prod.io", c: "text-emerald-400" },
-              ].map((l, i) => (
-                <motion.div key={i}
-                  initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }} transition={{ delay: i * 0.08 }}
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/5">
-                  <span className="text-muted-foreground">{l.t}</span>
-                  <span className={`w-10 ${l.c}`}>[{l.tag}]</span>
-                  <span className="text-white/80">{l.msg}</span>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------ GitHub + Testimonials --- */
-
-function GitHubStrip() {
-  const langs = [
-    { name: "Go", pct: 34, color: "#00ADD8" },
-    { name: "Python", pct: 28, color: "#3776AB" },
-    { name: "HCL", pct: 18, color: "#7B42BC" },
-    { name: "YAML", pct: 12, color: "#CB171E" },
-    { name: "Bash", pct: 8,  color: "#4EAA25" },
-  ];
-  const heat = Array.from({ length: 7 * 26 }, () => Math.random());
-
-  return (
-    <section className="relative py-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 grid lg:grid-cols-2 gap-4">
-        <div className="glass rounded-2xl p-6 hover-glow">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2"><Github className="h-4 w-4 text-cyber-cyan" />
-              <span className="font-display font-semibold">Contribution heatmap</span>
-            </div>
-            <span className="text-xs font-mono text-muted-foreground">1,842 commits · last 12mo</span>
-          </div>
-          <div className="grid gap-1" style={{ gridTemplateColumns: "repeat(26, minmax(0,1fr))" }}>
-            {heat.map((v, i) => (
-              <div key={i} className="aspect-square rounded-sm"
-                   style={{
-                     background: v > 0.85 ? "#06B6D4"
-                              : v > 0.6 ? "#3B82F6"
-                              : v > 0.3 ? "#3B82F655"
-                              : "rgba(255,255,255,0.05)",
-                   }} />
-            ))}
-          </div>
-        </div>
-
-        <div className="glass rounded-2xl p-6 hover-glow">
-          <div className="flex items-center gap-2 mb-4">
-            <Code2 className="h-4 w-4 text-cyber-purple" />
-            <span className="font-display font-semibold">Top languages</span>
-          </div>
-          <div className="h-3 rounded-full overflow-hidden flex mb-4">
-            {langs.map(l => <div key={l.name} style={{ width: `${l.pct}%`, background: l.color }} />)}
-          </div>
-          <div className="grid grid-cols-2 gap-3 text-sm">
-            {langs.map(l => (
-              <div key={l.name} className="flex items-center gap-2">
-                <span className="h-3 w-3 rounded-sm" style={{ background: l.color }} />
-                <span>{l.name}</span>
-                <span className="ml-auto text-muted-foreground font-mono">{l.pct}%</span>
-              </div>
-            ))}
-          </div>
-          <div className="mt-6 grid grid-cols-3 gap-3 text-center">
-            {[
-              { icon: Star, label: "Stars", val: "1.2k" },
-              { icon: GitPullRequest, label: "PRs", val: "412" },
-              { icon: Boxes, label: "Repos", val: "68" },
-            ].map(x => (
-              <div key={x.label} className="p-3 rounded-xl bg-white/[0.03] border border-white/10">
-                <x.icon className="h-4 w-4 mx-auto text-cyber-cyan" />
-                <div className="mt-1 font-display font-bold">{x.val}</div>
-                <div className="text-[10px] uppercase font-mono text-muted-foreground tracking-wider">{x.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function Testimonials() {
   const [i, setI] = useState(0);
@@ -2228,8 +2066,6 @@ function Portfolio() {
         <Achievements />
         <Architecture />
         <Pipeline />
-        <Security />
-        <GitHubStrip />
         <Testimonials />
         <Blog />
         <Contact />
