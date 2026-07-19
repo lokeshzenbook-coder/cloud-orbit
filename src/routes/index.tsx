@@ -2032,7 +2032,7 @@ function Portfolio() {
         <Achievements />
         <Architecture />
         <Pipeline />
-        <Testimonials />
+        
         <Blog />
         <Contact />
       </main>
