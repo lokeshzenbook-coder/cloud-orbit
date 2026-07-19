@@ -447,9 +447,6 @@ function Nav({ onCmd }: { onCmd: () => void }) {
                   className="hidden md:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg glass text-xs text-muted-foreground hover:text-white">
             <Command className="h-3.5 w-3.5" /> <span>⌘K</span>
           </button>
-          <MagneticButton href="#contact" className="hidden sm:inline-flex" variant="primary">
-            <Mail className="h-4 w-4" /> Hire me
-          </MagneticButton>
           <button className="lg:hidden p-2 rounded-lg glass" onClick={() => setOpen(o => !o)} aria-label="menu">
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
