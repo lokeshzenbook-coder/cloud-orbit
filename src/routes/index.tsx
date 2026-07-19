@@ -1045,7 +1045,7 @@ function Experience() {
               <motion.div
                 key={e.company}
                 initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }} transition={{ delay: i * 0.08 }}
+                viewport={{ once: true, amount: 0.05 }} transition={{ delay: Math.min(i * 0.06, 0.2), duration: 0.5, ease: "easeOut" }}
                 className="relative">
                 <span className="absolute -left-[22px] md:-left-[30px] top-4 h-4 w-4 rounded-full bg-cyber-blue ring-4 ring-cyber-blue/20 animate-pulse-ring" />
                 <div className="glass rounded-2xl p-6 hover-glow">
