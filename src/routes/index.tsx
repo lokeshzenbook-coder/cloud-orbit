@@ -1302,8 +1302,18 @@ function Contact() {
             <MagneticButton href="https://www.linkedin.com/in/grlokesh96" variant="outline"><Linkedin className="h-4 w-4" /> LinkedIn</MagneticButton>
             <MagneticButton href="mailto:grlokesh96@gmail.com" variant="outline"><Mail className="h-4 w-4" /> Email</MagneticButton>
           </div>
+          <div className="mt-3 text-xs font-mono text-muted-foreground flex items-center gap-2">
+            <Activity className="h-3.5 w-3.5 text-cyber-cyan" />
+            <span>résumé downloads:&nbsp;
+              <span className="text-white tabular-nums">{dlCount === null ? "—" : dlCount.toLocaleString()}</span>
+            </span>
+            <span className="ml-1 inline-flex items-center gap-1 rounded-full px-2 py-0.5 bg-white/[0.04] border border-white/10">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" /> live
+            </span>
+          </div>
 
         </div>
+
 
         <form onSubmit={(e) => { e.preventDefault(); setSent(true); }}
               className="glass rounded-3xl p-6 md:p-8 space-y-4 hover-glow">
