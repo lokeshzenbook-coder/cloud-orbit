@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
   component: Portfolio,
   head: () => ({
     meta: [
-      { title: "Alex Rivera — Senior DevOps & DevSecOps Engineer" },
+      { title: "G R Lokesh — Senior DevOps & DevSecOps Engineer" },
       {
         name: "description",
         content:
@@ -418,7 +418,7 @@ function Nav({ onCmd }: { onCmd: () => void }) {
             <Terminal className="h-4 w-4 text-white" />
             <span className="absolute inset-0 rounded-lg animate-pulse-ring" />
           </span>
-          <span className="text-gradient">alex.rivera</span>
+          <span className="text-gradient">G R Lokesh</span>
         </a>
 
         <nav className="hidden lg:flex items-center gap-1">
