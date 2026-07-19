@@ -24,6 +24,115 @@ async function trackResumeDownload(source: "hero" | "contact") {
   }
 }
 
+function ResumePreviewModal() {
+  const [open, setOpen] = useState(false);
+  const [source, setSource] = useState<"hero" | "contact">("hero");
+  const [loaded, setLoaded] = useState(false);
+  const pdfUrl = "/GR_Lokesh_Resume.pdf";
+
+  useEffect(() => {
+    const onOpen = (e: Event) => {
+      const detail = (e as CustomEvent).detail as { source?: "hero" | "contact" } | undefined;
+      setSource(detail?.source ?? "hero");
+      setLoaded(false);
+      setOpen(true);
+    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    window.addEventListener("open-resume-preview", onOpen as EventListener);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("open-resume-preview", onOpen as EventListener);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  const handleDownload = async () => {
+    await trackResumeDownload(source);
+    const a = document.createElement("a");
+    a.href = pdfUrl;
+    a.download = "GR_Lokesh_Resume.pdf";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  };
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[150] grid place-items-center p-4 sm:p-8 bg-black/70 backdrop-blur-md"
+          onClick={() => setOpen(false)}
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 220, damping: 24 }}
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-4xl h-[85vh] rounded-2xl overflow-hidden glass border border-white/10 shadow-[0_30px_80px_-20px_rgba(59,130,246,0.4)] flex flex-col"
+          >
+            <div className="flex items-center justify-between gap-3 px-4 sm:px-5 py-3 border-b border-white/10 bg-white/[0.02]">
+              <div className="flex items-center gap-2 min-w-0">
+                <ScrollText className="h-4 w-4 text-cyber-cyan shrink-0" />
+                <div className="min-w-0">
+                  <div className="text-sm font-medium truncate">GR_Lokesh_Resume.pdf</div>
+                  <div className="text-[11px] font-mono text-muted-foreground truncate">preview · source: {source}</div>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleDownload}
+                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium bg-gradient-cyber text-white shadow-[0_10px_30px_-10px_rgba(59,130,246,0.7)] hover:opacity-95 transition"
+                >
+                  <Download className="h-4 w-4" /> Download
+                </button>
+                <a
+                  href={pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hidden sm:inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm border border-white/15 glass hover:text-white transition"
+                >
+                  <ExternalLink className="h-4 w-4" /> New tab
+                </a>
+                <button
+                  onClick={() => setOpen(false)}
+                  aria-label="Close preview"
+                  className="p-2 rounded-lg border border-white/10 hover:bg-white/[0.06] transition"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+            <div className="relative flex-1 bg-[#0b1020]">
+              {!loaded && (
+                <div className="absolute inset-0 grid place-items-center text-muted-foreground font-mono text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-cyber-cyan animate-pulse" />
+                    loading preview…
+                  </div>
+                </div>
+              )}
+              <iframe
+                title="Resume preview"
+                src={`${pdfUrl}#view=FitH&toolbar=0`}
+                className="absolute inset-0 h-full w-full"
+                onLoad={() => setLoaded(true)}
+              />
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 
 export const Route = createFileRoute("/")({
   component: Portfolio,
