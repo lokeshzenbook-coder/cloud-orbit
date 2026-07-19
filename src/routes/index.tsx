@@ -535,7 +535,7 @@ function Hero() {
             <MagneticButton href="#projects" variant="outline">
               <Rocket className="h-4 w-4" /> View projects
             </MagneticButton>
-            <MagneticButton href="/GR_Lokesh_Resume.pdf" variant="outline" download="GR_Lokesh_Resume.pdf" target="_blank" rel="noopener">
+            <MagneticButton href="/GR_Lokesh_Resume.pdf" variant="outline" download="GR_Lokesh_Resume.pdf" target="_blank" rel="noopener" onClick={() => trackResumeDownload("hero")}>
               <Download className="h-4 w-4" /> Download résumé
             </MagneticButton>
 
