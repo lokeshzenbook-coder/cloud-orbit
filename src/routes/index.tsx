@@ -282,10 +282,11 @@ function StatCard({ stat, delay }: { stat: typeof STATS[number]; delay: number }
 }
 
 function MagneticButton({
-  children, variant = "primary", href, onClick, className = "",
+  children, variant = "primary", href, onClick, className = "", download, target, rel,
 }: {
   children: React.ReactNode; variant?: "primary" | "ghost" | "outline";
   href?: string; onClick?: () => void; className?: string;
+  download?: boolean | string; target?: string; rel?: string;
 }) {
   const ref = useRef<HTMLAnchorElement | HTMLButtonElement | null>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -317,6 +318,7 @@ function MagneticButton({
   if (href) {
     return (
       <a ref={ref as React.RefObject<HTMLAnchorElement>} href={href}
+         download={download as any} target={target} rel={rel}
          onMouseMove={handleMove} onMouseLeave={reset}
          className={`${base} ${variants[variant]} ${className}`}>
         {variant === "primary" && (
@@ -327,6 +329,7 @@ function MagneticButton({
       </a>
     );
   }
+
   return (
     <button ref={ref as React.RefObject<HTMLButtonElement>} onClick={onClick}
             onMouseMove={handleMove} onMouseLeave={reset}
@@ -517,9 +520,10 @@ function Hero() {
             <MagneticButton href="#projects" variant="outline">
               <Rocket className="h-4 w-4" /> View projects
             </MagneticButton>
-            <MagneticButton href="mailto:grlokesh96@gmail.com" variant="outline">
-              <Mail className="h-4 w-4" /> Email
+            <MagneticButton href="/GR_Lokesh_Resume.pdf" variant="outline" download="GR_Lokesh_Resume.pdf" target="_blank" rel="noopener">
+              <Download className="h-4 w-4" /> Download résumé
             </MagneticButton>
+
           </motion.div>
 
           <motion.div
@@ -1253,10 +1257,14 @@ function Contact() {
             </div>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
+            <MagneticButton href="/GR_Lokesh_Resume.pdf" variant="primary" download="GR_Lokesh_Resume.pdf" target="_blank" rel="noopener">
+              <Download className="h-4 w-4" /> Download résumé
+            </MagneticButton>
             <MagneticButton href="https://github.com/grlokesh96" variant="outline"><Github className="h-4 w-4" /> GitHub</MagneticButton>
             <MagneticButton href="https://www.linkedin.com/in/grlokesh96" variant="outline"><Linkedin className="h-4 w-4" /> LinkedIn</MagneticButton>
             <MagneticButton href="mailto:grlokesh96@gmail.com" variant="outline"><Mail className="h-4 w-4" /> Email</MagneticButton>
           </div>
+
         </div>
 
         <form onSubmit={(e) => { e.preventDefault(); setSent(true); }}
