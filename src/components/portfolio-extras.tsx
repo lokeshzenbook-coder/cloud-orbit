@@ -122,7 +122,7 @@ export function CustomCursor() {
 
 
 /* ---------------- Blog / Articles ---------------- */
-const ARTICLES = [
+export const ARTICLES = [
   { title: "Zero-Downtime EKS Upgrades with Karpenter", tag: "Kubernetes", read: "8 min",
     excerpt: "A production playbook for rolling control-plane and node upgrades without SLO impact." },
   { title: "GitOps at Scale: Argo CD ApplicationSets", tag: "GitOps", read: "6 min",
