@@ -1318,7 +1318,7 @@ function Footer() {
             <span className="h-7 w-7 rounded-lg bg-gradient-cyber grid place-items-center">
               <Terminal className="h-3.5 w-3.5 text-white" />
             </span>
-            <span className="text-gradient">alex.rivera</span>
+            <span className="text-gradient">grlokesh</span>
           </div>
           <div className="text-xs font-mono text-muted-foreground">
             © {new Date().getFullYear()} · Built with care & Kubernetes
