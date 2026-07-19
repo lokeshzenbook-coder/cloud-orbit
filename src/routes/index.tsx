@@ -1251,6 +1251,29 @@ function Testimonials() {
 
 function Contact() {
   const [sent, setSent] = useState(false);
+  const [dlCount, setDlCount] = useState<number | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      const { count } = await supabase
+        .from("resume_downloads")
+        .select("*", { count: "exact", head: true });
+      if (!cancelled) setDlCount(count ?? 0);
+    };
+    load();
+    const ch = supabase
+      .channel("resume_downloads_count")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "resume_downloads" },
+        () => setDlCount((c) => (c ?? 0) + 1),
+      )
+      .subscribe();
+    return () => {
+      cancelled = true;
+      supabase.removeChannel(ch);
+    };
+  }, []);
   return (
     <section id="contact" className="relative py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 grid lg:grid-cols-2 gap-8">
