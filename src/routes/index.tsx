@@ -1460,32 +1460,55 @@ const KIND_COLOR: Record<SearchItem["kind"], string> = {
   Article: "text-amber-400",
 };
 
+const FILTERS: ("All" | SearchItem["kind"])[] = ["All", "Section", "Project", "Experience", "Article"];
+
 function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [q, setQ] = useState("");
   const [active, setActive] = useState(0);
+  const [filter, setFilter] = useState<(typeof FILTERS)[number]>("All");
   const index = useMemo(() => buildSearchIndex(), []);
   const listRef = useRef<HTMLDivElement>(null);
 
+  const counts = useMemo(() => {
+    const query = q.trim().toLowerCase();
+    const c: Record<string, number> = { All: 0, Section: 0, Project: 0, Experience: 0, Article: 0 };
+    for (const item of index) {
+      if (query && fuzzyScore(query, item.tokens) === null) continue;
+      c[item.kind]++;
+      c.All++;
+    }
+    return c;
+  }, [q, index]);
+
   const results = useMemo(() => {
     const query = q.trim().toLowerCase();
-    if (!query) return index.filter(i => i.kind === "Section");
+    const pool = filter === "All" ? index : index.filter(i => i.kind === filter);
+    if (!query) {
+      return filter === "All" ? pool.filter(i => i.kind === "Section") : pool;
+    }
     const scored: { item: SearchItem; score: number }[] = [];
-    for (const item of index) {
+    for (const item of pool) {
       const s = fuzzyScore(query, item.tokens);
       if (s !== null) scored.push({ item, score: s });
     }
     scored.sort((a, b) => b.score - a.score);
     return scored.slice(0, 20).map(s => s.item);
-  }, [q, index]);
+  }, [q, index, filter]);
 
-  useEffect(() => { setActive(0); }, [q, open]);
-  useEffect(() => { if (!open) setQ(""); }, [open]);
+  useEffect(() => { setActive(0); }, [q, open, filter]);
+  useEffect(() => { if (!open) { setQ(""); setFilter("All"); } }, [open]);
 
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowDown") { e.preventDefault(); setActive(a => Math.min(results.length - 1, a + 1)); }
       else if (e.key === "ArrowUp") { e.preventDefault(); setActive(a => Math.max(0, a - 1)); }
+      else if (e.key === "Tab") {
+        e.preventDefault();
+        const dir = e.shiftKey ? -1 : 1;
+        const i = FILTERS.indexOf(filter);
+        setFilter(FILTERS[(i + dir + FILTERS.length) % FILTERS.length]);
+      }
       else if (e.key === "Enter") {
         const it = results[active];
         if (it) { window.location.hash = it.href; onClose(); }
@@ -1493,7 +1516,7 @@ function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void 
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open, results, active, onClose]);
+  }, [open, results, active, onClose, filter]);
 
   useEffect(() => {
     const el = listRef.current?.querySelector<HTMLElement>(`[data-idx="${active}"]`);
@@ -1516,10 +1539,29 @@ function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void 
                      className="flex-1 bg-transparent outline-none text-sm placeholder:text-muted-foreground" />
               <kbd className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-white/10">esc</kbd>
             </div>
+            <div className="flex items-center gap-1.5 px-3 py-2 border-b border-white/10 overflow-x-auto">
+              {FILTERS.map((f) => {
+                const isActive = filter === f;
+                const count = counts[f] ?? 0;
+                return (
+                  <button key={f} type="button" onClick={() => setFilter(f)}
+                    className={`shrink-0 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono uppercase tracking-wider transition ${
+                      isActive
+                        ? "bg-cyber-cyan/20 text-cyber-cyan ring-1 ring-cyber-cyan/40"
+                        : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                    }`}>
+                    {f}
+                    <span className={`text-[10px] px-1 rounded ${isActive ? "bg-cyber-cyan/20" : "bg-white/5"}`}>
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
             <div ref={listRef} className="max-h-96 overflow-auto p-2">
               {results.length === 0 && (
                 <div className="px-4 py-8 text-center text-sm text-muted-foreground">
-                  No matches for <span className="font-mono text-cyber-cyan">"{q}"</span>
+                  No matches {q && <>for <span className="font-mono text-cyber-cyan">"{q}"</span></>} in <span className="text-cyber-purple">{filter}</span>
                 </div>
               )}
               {results.map((it, i) => (
@@ -1542,7 +1584,7 @@ function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void 
             </div>
             <div className="flex items-center justify-between px-4 py-2 border-t border-white/10 text-[10px] font-mono text-muted-foreground">
               <span>{results.length} result{results.length === 1 ? "" : "s"}</span>
-              <span>↑↓ navigate · ↵ open · esc close</span>
+              <span>↹ filter · ↑↓ nav · ↵ open · esc close</span>
             </div>
           </motion.div>
         </motion.div>
@@ -1550,6 +1592,7 @@ function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void 
     </AnimatePresence>
   );
 }
+
 
 /* --------------------------------------------------------- Root Page --- */
 
