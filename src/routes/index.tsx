@@ -333,6 +333,7 @@ function MagneticButton({
     return (
       <a ref={ref as React.RefObject<HTMLAnchorElement>} href={href}
          download={download as any} target={target} rel={rel}
+         onClick={onClick}
          onMouseMove={handleMove} onMouseLeave={reset}
          className={`${base} ${variants[variant]} ${className}`}>
         {variant === "primary" && (
