@@ -1393,8 +1393,113 @@ function Footer() {
 
 /* --------------------------------------------- Command Palette (⌘K) --- */
 
+type SearchItem = {
+  kind: "Section" | "Project" | "Experience" | "Article";
+  label: string;
+  sub?: string;
+  href: string;
+  tokens: string; // pre-lowercased haystack
+};
+
+function buildSearchIndex(): SearchItem[] {
+  const items: SearchItem[] = [];
+  for (const n of NAV) {
+    items.push({
+      kind: "Section", label: n.label, sub: `Jump to #${n.id}`,
+      href: `#${n.id}`,
+      tokens: `${n.label} ${n.id}`.toLowerCase(),
+    });
+  }
+  for (const p of PROJECTS) {
+    items.push({
+      kind: "Project", label: p.title, sub: `${p.tagline} — ${p.outcome}`,
+      href: "#projects",
+      tokens: `${p.title} ${p.tagline} ${p.outcome} ${p.stack.join(" ")}`.toLowerCase(),
+    });
+  }
+  for (const e of EXPERIENCE) {
+    items.push({
+      kind: "Experience", label: `${e.role} · ${e.company}`, sub: `${e.period} — ${e.stack.join(", ")}`,
+      href: "#experience",
+      tokens: `${e.role} ${e.company} ${e.period} ${e.stack.join(" ")} ${e.bullets.join(" ")}`.toLowerCase(),
+    });
+  }
+  for (const a of ARTICLES) {
+    items.push({
+      kind: "Article", label: a.title, sub: `${a.tag} · ${a.read} — ${a.excerpt}`,
+      href: "#blog",
+      tokens: `${a.title} ${a.tag} ${a.excerpt}`.toLowerCase(),
+    });
+  }
+  return items;
+}
+
+/** Subsequence fuzzy match with proximity + word-boundary boosts. Returns null if no match. */
+function fuzzyScore(query: string, hay: string): number | null {
+  if (!query) return 0;
+  let qi = 0, score = 0, streak = 0, lastIdx = -1;
+  for (let i = 0; i < hay.length && qi < query.length; i++) {
+    if (hay[i] === query[qi]) {
+      let s = 4;
+      if (i === 0 || hay[i - 1] === " " || hay[i - 1] === "-" || hay[i - 1] === "/") s += 6;
+      if (lastIdx === i - 1) { streak++; s += streak * 3; } else { streak = 0; }
+      score += s;
+      lastIdx = i;
+      qi++;
+    }
+  }
+  if (qi < query.length) return null;
+  // Prefer shorter haystacks a bit
+  return score - Math.min(hay.length * 0.05, 20);
+}
+
+const KIND_COLOR: Record<SearchItem["kind"], string> = {
+  Section: "text-cyber-cyan",
+  Project: "text-cyber-purple",
+  Experience: "text-emerald-400",
+  Article: "text-amber-400",
+};
+
 function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const items = NAV.map(n => ({ label: `Jump to ${n.label}`, href: `#${n.id}` }));
+  const [q, setQ] = useState("");
+  const [active, setActive] = useState(0);
+  const index = useMemo(() => buildSearchIndex(), []);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  const results = useMemo(() => {
+    const query = q.trim().toLowerCase();
+    if (!query) return index.filter(i => i.kind === "Section");
+    const scored: { item: SearchItem; score: number }[] = [];
+    for (const item of index) {
+      const s = fuzzyScore(query, item.tokens);
+      if (s !== null) scored.push({ item, score: s });
+    }
+    scored.sort((a, b) => b.score - a.score);
+    return scored.slice(0, 20).map(s => s.item);
+  }, [q, index]);
+
+  useEffect(() => { setActive(0); }, [q, open]);
+  useEffect(() => { if (!open) setQ(""); }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowDown") { e.preventDefault(); setActive(a => Math.min(results.length - 1, a + 1)); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); setActive(a => Math.max(0, a - 1)); }
+      else if (e.key === "Enter") {
+        const it = results[active];
+        if (it) { window.location.hash = it.href; onClose(); }
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, results, active, onClose]);
+
+  useEffect(() => {
+    const el = listRef.current?.querySelector<HTMLElement>(`[data-idx="${active}"]`);
+    el?.scrollIntoView({ block: "nearest" });
+  }, [active]);
+
   return (
     <AnimatePresence>
       {open && (
@@ -1403,21 +1508,41 @@ function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void 
           className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm grid place-items-start pt-24 px-4">
           <motion.div initial={{ y: -10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -10, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-lg glass-strong rounded-2xl overflow-hidden neon-ring">
+            className="w-full max-w-xl glass-strong rounded-2xl overflow-hidden neon-ring">
             <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10">
               <Command className="h-4 w-4 text-cyber-cyan" />
-              <input autoFocus placeholder="Type a command or search…"
-                     className="flex-1 bg-transparent outline-none text-sm" />
+              <input autoFocus value={q} onChange={(e) => setQ(e.target.value)}
+                     placeholder="Search sections, projects, experience, articles…"
+                     className="flex-1 bg-transparent outline-none text-sm placeholder:text-muted-foreground" />
               <kbd className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-white/10">esc</kbd>
             </div>
-            <div className="max-h-80 overflow-auto p-2">
-              {items.map(it => (
-                <a key={it.href} href={it.href} onClick={onClose}
-                   className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/5 text-sm">
-                  <ChevronRight className="h-4 w-4 text-cyber-purple" />
-                  <span>{it.label}</span>
+            <div ref={listRef} className="max-h-96 overflow-auto p-2">
+              {results.length === 0 && (
+                <div className="px-4 py-8 text-center text-sm text-muted-foreground">
+                  No matches for <span className="font-mono text-cyber-cyan">"{q}"</span>
+                </div>
+              )}
+              {results.map((it, i) => (
+                <a key={`${it.kind}-${it.label}-${i}`} href={it.href} data-idx={i}
+                   onMouseEnter={() => setActive(i)}
+                   onClick={onClose}
+                   className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm ${
+                     i === active ? "bg-white/10" : "hover:bg-white/5"
+                   }`}>
+                  <span className={`font-mono text-[10px] uppercase tracking-wider w-16 ${KIND_COLOR[it.kind]}`}>
+                    {it.kind}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate">{it.label}</div>
+                    {it.sub && <div className="truncate text-xs text-muted-foreground">{it.sub}</div>}
+                  </div>
+                  <ChevronRight className="h-4 w-4 text-cyber-purple shrink-0" />
                 </a>
               ))}
+            </div>
+            <div className="flex items-center justify-between px-4 py-2 border-t border-white/10 text-[10px] font-mono text-muted-foreground">
+              <span>{results.length} result{results.length === 1 ? "" : "s"}</span>
+              <span>↑↓ navigate · ↵ open · esc close</span>
             </div>
           </motion.div>
         </motion.div>
