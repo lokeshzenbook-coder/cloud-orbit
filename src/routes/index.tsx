@@ -1349,10 +1349,11 @@ function Architecture() {
     <section id="architecture" className="relative py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
-          eyebrow="// aws · reference architecture"
-          title={<>Interactive <HL gradient>cloud topology</HL></>}
-          description="Click any node to inspect. This is the pattern I ship for production workloads on AWS."
+          eyebrow="// aws · devsecops reference architecture"
+          title={<>End-to-end <HL gradient>DevSecOps pipeline</HL></>}
+          description="From a developer's pull request to production on Amazon EKS — every stage is scanned, signed, provisioned as code, and continuously monitored. Click any stage to inspect the tooling."
         />
+
 
         <div className="grid lg:grid-cols-[1fr_320px] gap-6">
           <div className="glass rounded-3xl p-6 md:p-10 relative overflow-hidden">
