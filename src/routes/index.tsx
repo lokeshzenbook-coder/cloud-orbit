@@ -837,12 +837,12 @@ function Hero() {
 function SectionHeading({ eyebrow, title, description }: { eyebrow: string; title: React.ReactNode; description?: string }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }} viewport={{ once: true }}
-      className="max-w-3xl mb-12">
-      <div className="font-mono text-xs text-cyber-cyan uppercase tracking-widest">{eyebrow}</div>
-      <h2 className="mt-2 text-3xl md:text-5xl font-display font-bold">{title}</h2>
-      {description && <p className="mt-4 text-muted-foreground">{description}</p>}
+      initial={{ y: 16 }} whileInView={{ y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }} viewport={{ once: true, amount: 0.05 }}
+      className="max-w-3xl mb-10 md:mb-14">
+      <div className="font-mono text-[11px] sm:text-xs text-cyber-cyan uppercase tracking-widest">{eyebrow}</div>
+      <h2 className="mt-2 text-3xl sm:text-4xl md:text-5xl font-display font-bold leading-[1.15] tracking-tight text-balance">{title}</h2>
+      {description && <p className="mt-4 text-sm sm:text-base text-muted-foreground leading-relaxed text-pretty">{description}</p>}
     </motion.div>
   );
 }
@@ -854,12 +854,12 @@ function About() {
         <SectionHeading
           eyebrow="// about"
           title={<>Engineering platforms that <HL gradient>don't wake me up</HL></>}
-          description="Results-driven AWS DevOps Engineer with 5+ years architecting cloud-native platforms, Kubernetes infrastructure, GitOps workflows, and DevSecOps pipelines across production environments."
+          description="Results-driven AWS DevOps Engineer with 6+ years architecting cloud-native platforms, Kubernetes infrastructure, GitOps workflows, and DevSecOps pipelines across production environments."
         />
 
         <div className="grid lg:grid-cols-3 gap-6">
           <motion.div
-            initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+            initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.05 }} transition={{ duration: 0.5, ease: "easeOut" }}
             className="lg:col-span-2 glass rounded-3xl p-8 hover-glow">
             <div className="font-mono text-xs text-cyber-cyan mb-4">~/philosophy</div>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
@@ -882,7 +882,7 @@ function About() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+            initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.05 }} transition={{ duration: 0.5, ease: "easeOut" }}
             className="glass rounded-3xl p-8 hover-glow">
             <div className="font-mono text-xs text-cyber-cyan mb-4">~/currently</div>
             <ul className="space-y-4 text-sm">
@@ -1003,7 +1003,7 @@ function Certs() {
             <motion.div
               key={c.id}
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }} transition={{ delay: i * 0.05 }}
+              viewport={{ once: true, amount: 0.05 }} transition={{ delay: Math.min(i * 0.05, 0.15), duration: 0.5, ease: "easeOut" }}
               className="group relative rounded-2xl p-6 glass hover-glow overflow-hidden">
               <div className="absolute -top-16 -right-16 h-40 w-40 rounded-full blur-3xl opacity-30 group-hover:opacity-60 transition-opacity"
                    style={{ background: "radial-gradient(circle, #8B5CF6, transparent 60%)" }} />
@@ -1045,7 +1045,7 @@ function Experience() {
               <motion.div
                 key={e.company}
                 initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }} transition={{ delay: i * 0.08 }}
+                viewport={{ once: true, amount: 0.05 }} transition={{ delay: Math.min(i * 0.06, 0.2), duration: 0.5, ease: "easeOut" }}
                 className="relative">
                 <span className="absolute -left-[22px] md:-left-[30px] top-4 h-4 w-4 rounded-full bg-cyber-blue ring-4 ring-cyber-blue/20 animate-pulse-ring" />
                 <div className="glass rounded-2xl p-6 hover-glow">
@@ -1208,11 +1208,11 @@ function Achievements() {
             return (
               <motion.article
                 key={a.category}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ delay: i * 0.06, duration: 0.5 }}
-                className="group relative glass rounded-3xl p-6 md:p-7 border border-white/10 hover-glow overflow-hidden"
+                viewport={{ once: true, amount: 0.05 }}
+                transition={{ delay: Math.min(i * 0.05, 0.2), duration: 0.5, ease: "easeOut" }}
+                className="group relative glass rounded-3xl p-6 md:p-7 border border-white/10 hover-glow overflow-hidden flex flex-col"
               >
                 <div
                   className="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full opacity-20 blur-3xl transition group-hover:opacity-40"
@@ -1299,8 +1299,8 @@ function Projects() {
             return (
               <motion.article
                 key={p.title}
-                initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }} transition={{ delay: i * 0.05 }}
+                initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.05 }} transition={{ delay: Math.min(i * 0.05, 0.2), duration: 0.5, ease: "easeOut" }}
                 whileHover={{ y: -6, rotateX: 2, rotateY: -2 }}
                 style={{ transformStyle: "preserve-3d" }}
                 className="group relative rounded-2xl p-6 glass hover-glow overflow-hidden">
