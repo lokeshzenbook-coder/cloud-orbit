@@ -74,7 +74,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Portfolio of G R Lokesh, Senior DevOps & DevSecOps Engineer. AWS, Kubernetes, Terraform, GitOps, Platform Engineering and Cloud Security at scale.",
+          "Interactive cloud-ops portfolio. AWS, Kubernetes, Terraform, GitOps, DevSecOps pipelines. 8+ years shipping reliable, secure platforms.",
       },
       { name: "author", content: "G R Lokesh" },
       { name: "theme-color", content: "#050816" },
@@ -82,10 +82,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         property: "og:description",
         content:
-          "Interactive cloud-ops portfolio: AWS, Kubernetes, Terraform, GitOps, DevSecOps pipelines and platform engineering.",
+          "Interactive cloud-ops portfolio. AWS, Kubernetes, Terraform, GitOps, DevSecOps pipelines. 8+ years shipping reliable, secure platforms.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "G R Lokesh — Senior DevOps & DevSecOps Engineer" },
+      { name: "twitter:description", content: "Interactive cloud-ops portfolio. AWS, Kubernetes, Terraform, GitOps, DevSecOps pipelines. 8+ years shipping reliable, secure platforms." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/22bdcbd2-26ba-4702-af95-9911781181cf/id-preview-e8c912fc--a67312a8-020b-40e9-9865-10f113ecd972.lovable.app-1784472364114.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/22bdcbd2-26ba-4702-af95-9911781181cf/id-preview-e8c912fc--a67312a8-020b-40e9-9865-10f113ecd972.lovable.app-1784472364114.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
